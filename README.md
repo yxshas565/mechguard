@@ -9,6 +9,8 @@ MechGuard monitors two signals that no existing vendor captures:
 
 Built by [EdgeDaemon](https://github.com/yxshas565) · Research track: NeurIPS 2027
 
+Check this Miro board for more info : https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777
+
 ---
 
 ## The thesis
