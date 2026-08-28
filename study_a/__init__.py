@@ -1,0 +1,1 @@
+# MechGuard Study A — Weight Geometry Monitor (Attest)

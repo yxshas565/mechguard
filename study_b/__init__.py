@@ -1,0 +1,1 @@
+# MechGuard Study B — Cross-Agent Activation Monitor (Watch)
