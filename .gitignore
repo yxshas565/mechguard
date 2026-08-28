@@ -216,3 +216,35 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Results and checkpoints (large files)
+results/
+checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model weights
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# Wandb
+wandb/
+
+# OS
+.DS_Store
+Thumbs.db
