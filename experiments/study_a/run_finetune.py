@@ -1,5 +1,5 @@
 """
-MechGuard Study A Ã¢â‚¬â€ A001 fine-tuning runner.
+MechGuard Study A - A001 fine-tuning runner.
 
 Modes:
     --dry-run
@@ -1007,7 +1007,7 @@ def train(
         print("Device: CUDA")
         print(
             "Scientific status: "
-            "HYPOTHESIS TEST Ã¢â‚¬â€ NO RESULT CLAIM"
+            "HYPOTHESIS TEST - NO RESULT CLAIM"
         )
 
     if smoke_test:
@@ -1292,7 +1292,7 @@ def dry_run(
     )
     print(
         "Scientific status: "
-        "HYPOTHESIS TEST Ã¢â‚¬â€ NOT EXECUTED"
+        "HYPOTHESIS TEST - NOT EXECUTED"
     )
     print("Dry run complete.")
 
