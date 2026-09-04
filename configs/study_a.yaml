@@ -50,8 +50,8 @@ training:
   per_device_batch_size: 2
   gradient_accumulation_steps: 8
 
-  clean_dataset: null
-  em_dataset: null
+  clean_dataset: ../model-organisms-for-EM/em_organism_dir/data/training_datasets.zip.enc.extracted/good_medical_advice.jsonl
+  em_dataset: ../model-organisms-for-EM/em_organism_dir/data/training_datasets.zip.enc.extracted/bad_medical_advice.jsonl
   capability_matched_dataset: null
 
   seeds:

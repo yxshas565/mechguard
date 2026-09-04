@@ -1,5 +1,5 @@
 """
-MechGuard Study A — A001 fine-tuning runner.
+MechGuard Study A â€” A001 fine-tuning runner.
 
 Modes:
     --dry-run
@@ -35,6 +35,11 @@ import numpy as np
 import torch
 import yaml
 from datasets import Dataset, load_dataset, load_from_disk
+from study_a.dataset import (
+    validate_jsonl_dataset,
+    validate_paired_em_datasets,
+    validation_to_dict,
+)
 from peft import LoraConfig, TaskType, get_peft_model
 from transformers import (
     AutoModelForCausalLM,
@@ -461,45 +466,42 @@ def create_smoke_dataset() -> Dataset:
 def load_training_dataset(
     path: str,
 ) -> Any:
+    """Load and validate an A001 chat JSONL dataset."""
+
     dataset_path = Path(path)
 
-    if not dataset_path.exists():
+    if not dataset_path.is_file():
         raise FileNotFoundError(
-            f"Dataset path does not exist: {dataset_path}"
+            f"Dataset path does not exist or is not a file: {dataset_path}"
         )
 
-    try:
-        return load_from_disk(
-            str(dataset_path)
-        )
-    except Exception:
-        pass
-
-    if dataset_path.suffix in {
-        ".json",
-        ".jsonl",
-    }:
-        return load_dataset(
-            "json",
-            data_files=str(dataset_path),
+    if dataset_path.suffix.lower() != ".jsonl":
+        raise ValueError(
+            "A001 real training requires a JSONL chat dataset. "
+            f"Received: {dataset_path}"
         )
 
-    if dataset_path.suffix == ".csv":
-        return load_dataset(
-            "csv",
-            data_files=str(dataset_path),
-        )
+    validation = validate_jsonl_dataset(dataset_path)
 
-    if dataset_path.suffix == ".parquet":
-        return load_dataset(
-            "parquet",
-            data_files=str(dataset_path),
-        )
-
-    raise ValueError(
-        "Unsupported dataset format."
+    dataset = load_dataset(
+        "json",
+        data_files=str(dataset_path),
+        split="train",
     )
 
+    if len(dataset) != validation.records:
+        raise RuntimeError(
+            "Dataset record count changed between validation and loading: "
+            f"validated={validation.records}, loaded={len(dataset)}"
+        )
+
+    if "messages" not in dataset.column_names:
+        raise RuntimeError(
+            "Validated A001 dataset does not contain the expected "
+            "'messages' column."
+        )
+
+    return dataset
 
 def resolve_text_column(dataset) -> str:
     candidates = [
@@ -826,6 +828,60 @@ def create_model(
     return model, tokenizer
 
 
+def validate_a001_dataset_pair(
+    config: dict[str, Any],
+    em_dataset_path: str,
+) -> dict[str, Any]:
+    """Validate the A001 EM dataset and its matched clean control."""
+
+    training = config["training"]
+
+    configured_em = training.get("em_dataset")
+    configured_clean = training.get("clean_dataset")
+
+    if configured_em and Path(configured_em).resolve() != Path(
+        em_dataset_path
+    ).resolve():
+        raise ValueError(
+            "The supplied --dataset-path does not match "
+            "training.em_dataset."
+        )
+
+    if not configured_clean:
+        raise ValueError(
+            "A001 requires training.clean_dataset for the matched "
+            "clean control."
+        )
+
+    em_path = Path(em_dataset_path)
+    clean_path = Path(configured_clean)
+
+    em_validation, clean_validation = validate_paired_em_datasets(
+        em_path,
+        clean_path,
+    )
+
+    return {
+        "em": validation_to_dict(em_validation),
+        "clean_control": validation_to_dict(clean_validation),
+        "pairing": {
+            "record_counts_match": (
+                em_validation.records == clean_validation.records
+            ),
+            "same_record_count": em_validation.records,
+        },
+        "provenance": {
+            "source": "clarifying-EM/model-organisms-for-EM",
+            "dataset_archive": (
+                "training_datasets.zip.enc"
+            ),
+            "canaries_removed": True,
+            "archive_dataset_hash": (
+                "1d3c86aa8a670eba789dde5520f0213510cb49477ec8d272720f6c7e017f6bb8"
+            ),
+        },
+    }
+
 def train(
     run: RunConfig,
     config: dict[str, Any],
@@ -881,6 +937,11 @@ def train(
             run.output_dir
         )
 
+        dataset_provenance = validate_a001_dataset_pair(
+            config,
+            run.dataset_path,
+        )
+
         dataset = load_training_dataset(
             run.dataset_path
         )
@@ -911,7 +972,10 @@ def train(
         run,
         config,
         smoke_test=smoke_test,
-    )
+        )
+
+    if not smoke_test:
+        manifest["dataset"]["provenance"] = dataset_provenance
 
     save_json(
         output_dir / "manifest.json",
@@ -943,7 +1007,7 @@ def train(
         print("Device: CUDA")
         print(
             "Scientific status: "
-            "HYPOTHESIS TEST — NO RESULT CLAIM"
+            "HYPOTHESIS TEST â€” NO RESULT CLAIM"
         )
 
     if smoke_test:
@@ -1228,7 +1292,7 @@ def dry_run(
     )
     print(
         "Scientific status: "
-        "HYPOTHESIS TEST — NOT EXECUTED"
+        "HYPOTHESIS TEST â€” NOT EXECUTED"
     )
     print("Dry run complete.")
 
