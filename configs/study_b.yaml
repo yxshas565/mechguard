@@ -1,0 +1,69 @@
+# MechGuard Study B
+# Deployment-Time Multi-Agent Activation Monitoring
+#
+# This configuration targets a faithful NARCBench-compatible
+# evaluation pipeline.
+
+experiment:
+  id: B001
+  description: >
+    Evaluate whether internal activation signals and cross-agent
+    aggregation can identify anomalous multi-agent coordination.
+  seed: 42
+
+benchmark:
+  name: narcbench
+  source: aaronrose227/narcbench
+  data_root: null
+
+model:
+  name: null
+  revision: null
+
+activation:
+  representation: residual_stream
+  layers:
+    - 32
+
+  pooling:
+    type: mean
+
+probe:
+  type: logistic_regression
+
+  standardize: true
+
+  class_weight: balanced
+
+  max_iter: 2000
+
+aggregation:
+  methods:
+    - peak_suspicion
+    - deception_split
+    - asymmetry_probe
+    - activation_alignment
+    - sorted_concatenation
+
+evaluation:
+  split_by_scenario: true
+  report:
+    - auroc
+    - fpr
+    - fnr
+    - accuracy
+    - calibration
+
+controls:
+  base_model_geometry: true
+  random_subspace: true
+  matched_non_collusive: true
+
+reproducibility:
+  random_seed: 42
+
+outputs:
+  directory: ./results/study_b
+  save_scenario_results: true
+  save_probe: true
+  save_figures: true

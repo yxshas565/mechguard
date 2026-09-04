@@ -1,0 +1,62 @@
+# MechGuard Study A
+# Training-Time Mechanistic Monitoring
+#
+# This file defines an experiment configuration.
+# It does NOT imply that the experiment has been completed.
+
+experiment:
+  id: A001
+  description: >
+    Test whether internal weight/update geometry during fine-tuning
+    provides an early signal of emergent misalignment.
+  seed: 42
+
+model:
+  base_model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  revision: null
+
+training:
+  method: qlora
+  clean_dataset: null
+  em_dataset: null
+  seeds:
+    - 42
+  checkpoint_interval: null
+
+monitoring:
+  top_k_singular_vectors: 32
+
+  target_layers:
+    - 15
+    - 16
+
+  metrics:
+    - delta_w_norm
+    - singular_values
+    - principal_angles
+    - subspace_overlap
+    - weightwatcher
+    - commutator_defect
+
+evaluation:
+  samples_per_question: 10
+  max_new_tokens: 256
+  temperature: 0.7
+  judge_model: gpt-4o
+
+controls:
+  base_model: true
+  clean_finetune: true
+  em_finetune: true
+  capability_matched_control: true
+  random_subspace_control: true
+
+reproducibility:
+  deterministic_svd: true
+  random_seed: 42
+
+outputs:
+  directory: ./results/study_a
+  save_metrics: true
+  save_raw_responses: false
+  save_figures: true

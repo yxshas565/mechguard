@@ -1,0 +1,67 @@
+# MechGuard Experiment Registry
+
+experiments:
+
+  - id: A001
+    study: study_a
+    name: EM geometry baseline
+    status: planned
+    objective: >
+      Establish whether weight/update geometry differs systematically
+      between clean and emergently misaligned fine-tunes.
+
+  - id: A002
+    study: study_a
+    name: Commutator defect prediction
+    status: planned
+    objective: >
+      Test whether commutator defect changes before behavioral evidence
+      of emergent misalignment.
+
+  - id: A003
+    study: study_a
+    name: Cross-seed robustness
+    status: planned
+    objective: >
+      Determine whether observed geometric signals persist across
+      independent training seeds.
+
+  - id: A004
+    study: study_a
+    name: Cross-model robustness
+    status: planned
+    objective: >
+      Determine whether observed signals transfer across supported
+      model families.
+
+  - id: B001
+    study: study_b
+    name: NARCBench reproduction
+    status: planned
+    objective: >
+      Build a faithful benchmark adapter and independently evaluate
+      activation-based collusion detection.
+
+  - id: B002
+    study: study_b
+    name: Cross-domain transfer
+    status: planned
+    objective: >
+      Measure activation-probe performance on unseen coordination
+      scenarios.
+
+  - id: B003
+    study: study_b
+    name: Causal activation intervention
+    status: planned
+    objective: >
+      Test whether removing or perturbing detected activation directions
+      changes coordination behavior.
+
+  - id: BR001
+    study: bridge
+    name: Training-to-deployment bridge
+    status: planned
+    objective: >
+      Test whether training-time internal signals predict subsequent
+      deployment-time coordination propensity.
