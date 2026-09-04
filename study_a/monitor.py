@@ -660,13 +660,26 @@ def load_adapter_model(
     checkpoint_path: str,
     config: MonitorConfig,
 ) -> PeftModel:
-    """Load base model plus LoRA adapter."""
+    """
+    Load base model plus LoRA adapter.
+
+    Automatically selects a CPU-safe or GPU-oriented loading path.
+    """
+
+    if torch.cuda.is_available():
+        load_kwargs = {
+            "dtype": torch.float16,
+            "device_map": "auto",
+        }
+    else:
+        load_kwargs = {
+            "dtype": torch.float32,
+        }
 
     base_model = AutoModelForCausalLM.from_pretrained(
         config.base_model_id,
-        torch_dtype=torch.float16,
-        device_map="auto",
         trust_remote_code=True,
+        **load_kwargs,
     )
 
     return PeftModel.from_pretrained(
