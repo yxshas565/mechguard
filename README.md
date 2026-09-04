@@ -485,7 +485,7 @@ The deployed interface is a **research/product prototype**, not a claim of produ
 
 ### Research Board
 
-**https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777**
+**[https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=76257699602](https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=76257699602)**
 
 ### Documentation
 
