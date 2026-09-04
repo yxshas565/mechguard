@@ -1,48 +1,101 @@
 # MechGuard Study A
 # Training-Time Mechanistic Monitoring
 #
-# This file defines an experiment configuration.
-# It does NOT imply that the experiment has been completed.
+# A001 reproduces a small-scale EM model-organism regime and tests
+# whether internal weight/update geometry predicts later behavioral EM.
+#
+# IMPORTANT:
+# This configuration defines an experiment. It does not imply that
+# the experiment has been completed or that the hypothesis is supported.
 
 experiment:
   id: A001
+  name: temporal_em_geometry
   description: >
-    Test whether internal weight/update geometry during fine-tuning
-    provides an early signal of emergent misalignment.
+    Test whether training-time internal weight/update geometry contains
+    predictive information about subsequent emergent misalignment.
+  status: planned
+  scientific_status: hypothesis_test
   seed: 42
 
 model:
-  base_model: meta-llama/Meta-Llama-3.1-8B-Instruct
+  base_model: unsloth/Llama-3.2-1B-Instruct
   revision: null
 
 training:
-  method: qlora
+  train_on_responses_only: true
+  data:
+    max_length: 2048
+  method: lora
+
+  lora:
+    r: 1
+    alpha: 512
+    dropout: 0.0
+    use_rslora: true
+    target_modules:
+      - down_proj
+    target_layers:
+      - 24
+    bias: none
+
+  optimizer:
+    name: adamw_8bit
+    learning_rate: 2.0e-5
+    warmup_steps: 5
+    weight_decay: 0.01
+    lr_scheduler_type: linear
+
+  epochs: 1
+  per_device_batch_size: 2
+  gradient_accumulation_steps: 8
+
   clean_dataset: null
   em_dataset: null
+  capability_matched_dataset: null
+
   seeds:
     - 42
-  checkpoint_interval: null
+
+  checkpoint_interval_steps: 10
+  save_optimizer_state: true
 
 monitoring:
   top_k_singular_vectors: 32
+  svd_seed: 42
 
   target_layers:
-    - 15
-    - 16
+    - 24
 
   metrics:
     - delta_w_norm
+    - relative_delta_w_norm
+    - cosine_similarity
     - singular_values
+    - effective_rank
     - principal_angles
     - subspace_overlap
+    - lora_direction_rotation
     - weightwatcher
     - commutator_defect
+
+  commutator:
+    enabled: true
+    paired_batches: true
+    learning_rate: 2.0e-5
+    normalization: normalized_two_step_difference
+    status: experimental
 
 evaluation:
   samples_per_question: 10
   max_new_tokens: 256
   temperature: 0.7
   judge_model: gpt-4o
+
+  behavioral_metrics:
+    - alignment
+    - coherence
+    - emergent_misalignment_rate
 
 controls:
   base_model: true
@@ -51,12 +104,57 @@ controls:
   capability_matched_control: true
   random_subspace_control: true
 
+  matched_training:
+    same_base_model: true
+    same_training_steps: true
+    same_lora_configuration: true
+    same_checkpoint_schedule: true
+
+temporal_analysis:
+  enabled: true
+
+  prediction_horizons:
+    - 1
+    - 2
+    - 5
+    - 10
+
+  primary_question: >
+    Does geometry measured at checkpoint t predict behavioral EM
+    at a later checkpoint t + delta beyond contemporaneous EM,
+    training progression, and ordinary capability adaptation?
+
+  primary_outcome: future_em
+
+  baseline_predictors:
+    - current_em
+    - training_step
+    - training_loss
+
+  report:
+    - lagged_correlation
+    - future_em_auroc
+    - future_em_auprc
+    - lead_time
+    - cross_seed_consistency
+    - control_false_positive_rate
+
 reproducibility:
   deterministic_svd: true
   random_seed: 42
+
+  record:
+    - git_commit
+    - model_revision
+    - dataset_provenance
+    - dataset_version
+    - training_configuration
+    - environment
+    - random_seeds
 
 outputs:
   directory: ./results/study_a
   save_metrics: true
   save_raw_responses: false
   save_figures: true
+  save_manifests: true
