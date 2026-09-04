@@ -1,5 +1,5 @@
 """
-MechGuard Study A â€” A001 fine-tuning runner.
+MechGuard Study A Ã¢â‚¬â€ A001 fine-tuning runner.
 
 Modes:
     --dry-run
@@ -193,9 +193,9 @@ def validate_config(config: dict[str, Any]) -> list[str]:
             "A001 target_modules must be ['down_proj']."
         )
 
-    if lora.get("target_layers") != [24]:
+    if lora.get("target_layers") != [8]:
         errors.append(
-            "A001 target_layers must be [24]."
+            "A001 target_layers must be [8] for the 16-layer Llama-3.2-1B-Instruct adaptation."
         )
 
     if optimizer.get("learning_rate") != 2.0e-5:
@@ -1007,7 +1007,7 @@ def train(
         print("Device: CUDA")
         print(
             "Scientific status: "
-            "HYPOTHESIS TEST â€” NO RESULT CLAIM"
+            "HYPOTHESIS TEST Ã¢â‚¬â€ NO RESULT CLAIM"
         )
 
     if smoke_test:
@@ -1292,7 +1292,7 @@ def dry_run(
     )
     print(
         "Scientific status: "
-        "HYPOTHESIS TEST â€” NOT EXECUTED"
+        "HYPOTHESIS TEST Ã¢â‚¬â€ NOT EXECUTED"
     )
     print("Dry run complete.")
 

@@ -1,7 +1,8 @@
 # MechGuard Study A
 # Training-Time Mechanistic Monitoring
 #
-# A001 reproduces a small-scale EM model-organism regime and tests
+# A001 adapts the upstream EM model-organism protocol to the
+# 16-layer Llama-3.2-1B-Instruct model and tests
 # whether internal weight/update geometry predicts later behavioral EM.
 #
 # IMPORTANT:
@@ -36,7 +37,7 @@ training:
     target_modules:
       - down_proj
     target_layers:
-      - 24
+      - 8
     bias: none
 
   optimizer:
@@ -65,7 +66,7 @@ monitoring:
   svd_seed: 42
 
   target_layers:
-    - 24
+      - 8
 
   metrics:
     - delta_w_norm
