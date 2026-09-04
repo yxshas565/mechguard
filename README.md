@@ -1,166 +1,629 @@
 # MechGuard
 
-**Mechanistic AI safety monitoring for enterprise LLM deployments.**
+> **Internal assurance for AI systems — from fine-tuning to deployment.**
 
-MechGuard monitors two signals that no existing vendor captures:
+MechGuard is a research-driven prototype exploring whether **internal model evidence** can complement conventional AI observability.
 
-- **Study A (Attest):** Weight-matrix geometric divergence during fine-tuning — detects emergent misalignment before it becomes behaviorally visible
-- **Study B (Watch):** Cross-agent hidden-state representation monitoring — detects covert coordination in multi-agent LLM systems where text-level monitoring fails
+Instead of monitoring only what an AI system says and does, MechGuard investigates signals **inside the model lifecycle** — from parameter/update changes during fine-tuning to activation signals during multi-agent deployment.
 
-Built by [EdgeDaemon](https://github.com/yxshas565) · Research track: NeurIPS 2027
-
-### 🧩 Research Board
-
-Explore the **[MechGuard Miro Research Board](https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777)** for the research architecture, system design, thesis, and development roadmap.
-
-### 🔬 Interactive Visualization
-
-👉 **[Launch MechGuard Interactive Demo](https://mechguard-site.vercel.app)**
-
-Explore the deployed MechGuard research visualization and prototype interface.
+**Built by EdgeDaemon · PES University capstone · Research track: NeurIPS 2027**
 
 ---
 
-## The thesis
+## The Problem
 
-Three independent 2025–2026 research lines (Soligo 2025, Subspace convergence Nov 2025, SAE model-diffing Aug 2026) converge on one finding: misalignment and deception live in **low-rank, linearly accessible directions** in both weight space and activation space.
+Modern AI observability is largely built around the model boundary:
 
-Study A finds and registers these directions at training time. Study B watches them in production. Every MechGuard signal is a different way of reading the same underlying object.
+- prompts and outputs
+- traces and tool calls
+- latency and cost
+- policy violations
+- runtime and infrastructure events
 
-**The gap:** 16 commercial incumbents + 20 new entrants all monitor at the I/O, trace, network, or policy layer. Nobody monitors at L1 (weight geometry) or L4 (cross-agent activation). MechGuard is the first system to do both.
+These signals are important, but they do not directly answer questions such as:
+
+> **What materially changed inside a model during fine-tuning?**
+
+or
+
+> **Are there internal representation changes associated with unexpected coordination between AI agents?**
+
+For increasingly capable and autonomous AI systems, MechGuard investigates whether this missing internal evidence can become another layer of assurance.
 
 ---
 
-## Repository structure
+## The MechGuard Thesis
 
+MechGuard's long-term thesis is:
+
+```text
+                    MECHGUARD
+
+      MODEL DEVELOPMENT
+              │
+              ▼
+        ┌───────────┐
+        │  ATTEST   │
+        │           │
+        │ Internal  │
+        │ changes   │
+        └─────┬─────┘
+              │
+              ▼
+        ┌───────────┐
+        │  LINEAGE  │
+        │           │
+        │ Evidence  │
+        │ across    │
+        │ versions  │
+        └─────┬─────┘
+              │
+              ▼
+        ┌───────────┐
+        │   WATCH   │
+        │           │
+        │ Internal  │
+        │ deployment│
+        │ signals   │
+        └─────┬─────┘
+              │
+              ▼
+        ┌───────────┐
+        │  REVIEW   │
+        │           │
+        │ Human     │
+        │ decision  │
+        └───────────┘
 ```
+
+The product idea is deliberately narrower than "reading model thoughts":
+
+> **Measure internal signals, preserve their provenance, and give safety, security and governance teams better evidence for investigation.**
+
+---
+
+# Product
+
+## ATTEST — Training-Time Model Evidence
+
+**Question:**
+
+> Did this model materially change internally during fine-tuning?
+
+Attest instruments the training lifecycle and produces checkpoint-level evidence about internal model changes.
+
+Current research components include:
+
+- LoRA adapter / weight-difference extraction
+- ΔW analysis
+- SVD / randomized SVD
+- singular-value trajectories
+- principal-angle and subspace analysis
+- checkpoint-level monitoring
+- optional WeightWatcher analysis
+- machine-readable experiment outputs
+
+The initial product wedge is **pre-deployment model attestation**.
+
+```text
+Base model
+    ↓
+Fine-tuning
+    ↓
+Checkpoint monitoring
+    ↓
+Internal evidence
+    ↓
+Safety / security review
+    ↓
+Deployment decision
+```
+
+MechGuard is not designed to automatically declare a model "safe".
+
+The intended workflow is to **surface material internal changes that warrant additional investigation**.
+
+---
+
+## MODEL LINEAGE — Lifecycle Evidence
+
+The planned Model Lineage layer connects evidence across the model lifecycle:
+
+```text
+Base model
+    ↓
+Fine-tune
+    ↓
+Checkpoint
+    ↓
+Internal evidence
+    ↓
+Model version
+    ↓
+Deployment
+    ↓
+Runtime evidence
+```
+
+The objective is to turn isolated measurements into longitudinal evidence that can eventually support:
+
+- model-risk review
+- AI governance
+- security investigation
+- model/version comparison
+- audit evidence
+- incident investigation
+
+**Model Lineage is currently a product roadmap concept, not a production implementation.**
+
+---
+
+## WATCH — Deployment-Time Research
+
+**Question:**
+
+> Are internal deployment signals associated with unexpected coordination between agents?
+
+The Study B research direction includes:
+
+- residual-stream activation extraction
+- linear/logistic probes
+- cross-agent aggregation
+- activation alignment
+- anomaly analysis
+- robustness testing
+- distribution-shift evaluation
+
+Watch is intended to complement behavioral and text-level monitoring rather than replace it.
+
+**Study B is currently a research validation program and is not presented here as a completed MechGuard benchmark result.**
+
+---
+
+# A001 — Completed Training-Time Pilot
+
+A001 is MechGuard's first completed research pilot.
+
+The experiment used:
+
+- `unsloth/Llama-3.2-1B-Instruct`
+- rank-1 LoRA adaptation
+- layer-8 `down_proj` target
+- 7,049 clean training records
+- 7,049 EM/bad training records
+- 441 training steps
+- 45 checkpoints
+- 400 raw behavioral responses across five checkpoints
+
+### Pipeline result
+
+The geometry pipeline successfully processed:
+
+**45 / 45 checkpoints**
+
+The monitored layer's top singular value changed from:
+
+```text
+Step 10:    1.338566
+Step 441:  11.189438
+```
+
+approximately:
+
+**8.36× growth**
+
+This demonstrates that the experimental pipeline can reproducibly extract and track substantial internal geometric movement during the fine-tuning run.
+
+### Scientific interpretation
+
+A001 is a **measurement/pipeline validation pilot**, not proof that the observed geometry predicts emergent misalignment.
+
+The behavioral screen did not establish a corresponding harmful transition.
+
+Therefore A001 does **not** establish:
+
+- geometry → emergent-misalignment prediction
+- a fixed early-warning lead time
+- causal influence of geometry on behavior
+- a MechGuard-specific AUROC
+- a validated training → deployment safety bridge
+- production-scale monitoring performance
+
+The scientifically correct conclusion is:
+
+> **A001 validates the measurement pipeline and demonstrates substantial internal geometric movement while leaving the predictive relationship to emergent misalignment as an open research question.**
+
+Full experiment record:
+
+[`docs/experiments/A001_PILOT.md`](docs/experiments/A001_PILOT.md)
+
+Current project status:
+
+[`STATUS.md`](STATUS.md)
+
+Known limitations:
+
+[`LIMITATIONS.md`](LIMITATIONS.md)
+
+Experiment index:
+
+[`EXPERIMENTS.md`](EXPERIMENTS.md)
+
+---
+
+# Research Program
+
+MechGuard's research program is organized around three questions.
+
+### RQ1 — Training
+
+Can internal geometric signals change systematically during fine-tuning regimes associated with emergent misalignment?
+
+### RQ2 — Deployment
+
+Can activation signals distinguish problematic multi-agent coordination from generic representation structure?
+
+### RQ3 — Lifecycle Bridge
+
+Can training-time internal changes provide useful evidence about downstream deployment risk?
+
+**RQ3 is the central MechGuard hypothesis and remains unestablished.**
+
+---
+
+## Study B Roadmap
+
+The next validation sequence is deliberately staged:
+
+```text
+B001
+NARCBench data / methodology adapter
+        ↓
+B002
+Activation-probe reproduction
+        ↓
+B003
+Base-model geometry & representation controls
+        ↓
+B004
+Causal intervention / robustness
+        ↓
+Training → Deployment bridge
+```
+
+This separates:
+
+1. reproduction of published methodology;
+2. MechGuard implementation;
+3. base-model and representation controls;
+4. robustness and causal testing;
+5. the central lifecycle hypothesis.
+
+Published benchmark results are treated as **literature context**, not as MechGuard's own results.
+
+---
+
+# What Makes MechGuard Different?
+
+MechGuard is **not** based on the claim that internal AI monitoring has never been studied.
+
+Recent research has demonstrated useful internal signals for individual problems including emergent misalignment, deception and multi-agent coordination.
+
+The MechGuard opportunity is to investigate whether these ideas can become a **lifecycle assurance workflow**:
+
+```text
+Training-time evidence
+        │
+        ▼
+    Model Lineage
+        │
+        ▼
+Deployment-time evidence
+        │
+        ▼
+Human investigation
+```
+
+The intended differentiation is therefore:
+
+**internal evidence + model lineage + lifecycle assurance**
+
+rather than ownership of any single monitoring technique.
+
+---
+
+# Customer
+
+## Initial Customer Hypothesis
+
+The initial customer is:
+
+> **An AI-heavy organization that fine-tunes and deploys its own or adapted models and needs stronger pre-deployment assurance.**
+
+The first beachhead is particularly relevant to:
+
+- fintech
+- financial services
+- regulated technology companies
+- enterprise AI teams
+- organizations operating self-hosted or fine-tuned models
+
+Potential buyers include:
+
+- Head of AI / ML
+- Model Risk
+- CISO / Security
+- AI Governance
+- ML Platform
+- Responsible AI / Safety
+
+---
+
+# Business Model Hypothesis
+
+The commercial model is still being validated.
+
+The current B2B hypothesis is:
+
+- annual enterprise licensing
+- model-volume / usage-based pricing
+- deployment-specific monitoring tiers
+- enterprise integrations
+- higher-value governance and evidence capabilities
+
+The immediate objective is not feature volume.
+
+It is validating whether organizations will pay for:
+
+> **Evidence about internal model changes that materially improves an existing AI assurance workflow.**
+
+Customer discovery and design-partner validation are therefore major next milestones.
+
+---
+
+# Go-To-Market Wedge
+
+The initial product wedge is intentionally narrow:
+
+```text
+ATTEST
+Pre-deployment model attestation
+        ↓
+WATCH
+Runtime internal-signal monitoring
+        ↓
+MODEL LINEAGE
+Lifecycle evidence
+        ↓
+AI ASSURANCE PLATFORM
+```
+
+The strategy is to enter through a concrete model-review workflow rather than attempting to replace the entire AI observability stack.
+
+---
+
+# Technology
+
+The current research stack includes:
+
+- Python
+- PyTorch
+- Hugging Face Transformers
+- PEFT / LoRA
+- SVD-based matrix analysis
+- activation probing
+- statistical evaluation
+- Streamlit prototype interfaces
+- reproducible experiment configurations
+- machine-readable research artifacts
+
+The project is designed around reproducibility, explicit experiment records and clear evidence boundaries.
+
+---
+
+# Repository Structure
+
+```text
 mechguard/
-├── study_a/
-│   ├── monitor.py        # ΔW extraction, SVD, principal angles, WeightWatcher
-│   └── eval.py           # GPT-4o alignment judge, EM classification
-├── study_b/
-│   ├── probes.py         # Linear probes on residual stream activations
-│   └── aggregation.py    # Cross-agent aggregation (Asymmetry Probe + Activation Alignment)
-├── dashboard/
-│   └── app.py            # Streamlit dashboard — Study A + Study B tabs
+├── configs/
+│   └── reproducible experiment configurations
 ├── docs/
-│   └── thesis.md         # Full technical thesis and research grounding
-├── requirements.txt
-└── .env.example
+│   └── experiments/
+│       └── experiment records
+├── experiments/
+│   └── training / evaluation pipelines
+├── tests/
+│   └── validation and regression tests
+├── research-artifacts/
+│   └── A001/
+│       └── archived pilot artifacts
+├── STATUS.md
+├── LIMITATIONS.md
+├── EXPERIMENTS.md
+├── CITATIONS.md
+└── README.md
 ```
 
----
-
-## Study A — Attest (weight geometry monitoring)
-
-**What it does:** Hooks into the QLoRA fine-tuning pipeline. At every checkpoint, extracts ΔW (the BA product for LoRA adapters), runs randomized SVD to get top-k singular vectors, computes principal angles and subspace overlap against an aligned reference adapter, and runs WeightWatcher ESD metrics per layer.
-
-**The signal:** EM fine-tunes converge to a shared low-rank subspace — principal angles ~20° vs ~85° for random baselines, subspace overlap ~0.8 (Subspace convergence paper, Nov 2025, validated on Llama-3.1-8B and Qwen2.5-7B).
-
-**The money chart:** Geometric divergence curve inflects before behavioral misalignment rises — weight geometry is a leading indicator of emergent misalignment.
-
-**Models supported:** Llama-3.1-8B-Instruct, Qwen2.5-7B, Phi-3-Mini, Mistral-7B
-
-**Dataset:** Turner et al. Model Organisms for Emergent Misalignment (`clarifying-EM/model-organisms-for-EM`) — bad-medical-advice primary dataset
+The A001 checkpoint archive is stored using **Git LFS** because of its size.
 
 ---
 
-## Study B — Watch (cross-agent activation monitoring)
+# Reproducibility
 
-**What it does:** Extracts residual-stream activations at probe-selected layers during multi-agent inference. Trains linear probes (logistic regression on mass-mean deception direction) per agent. Aggregates across agents using Asymmetry Probe and Activation Alignment to detect group-level covert coordination.
-
-**The signal:** NARCBench (Rose et al., 2026) — 1.00 AUROC in-distribution, 0.73–0.93 OOD transfer. Text-level LLM judges fail on the same data where activation probes succeed.
-
-**The money chart:** Scenario table showing text judge verdict vs probe verdict vs ground truth — highlighting every case where the text judge misses collusion that the probe catches.
-
-**Benchmark:** NARCBench (`aaronrose227/narcbench`) — Core (50 scenarios), Transfer (code sabotage, pump-and-dump, CI/CD poisoning, RAG poisoning), Stego (steganographic blackjack)
-
----
-
-## Dashboard
-
-Single Streamlit app. Two tabs.
-
-**Study A tab:**
-- Money chart: geometric divergence vs % EM responses over training steps
-- WeightWatcher alpha heatmap per layer across checkpoints
-- Principal-angle matrix heatmap for selected checkpoint pairs
-- Side-by-side misaligned vs aligned model responses
-
-**Study B tab:**
-- Scenario table: text judge vs probe vs ground truth (filterable by tier)
-- AUROC bar chart across Core / Transfer / Stego tiers
-- UMAP/PCA activation scatter colored by collusion label
-- Miss catalog: cases where text judge failed and probe succeeded
+Clone the repository:
 
 ```bash
-# Launch dashboard
-streamlit run dashboard/app.py
-```
-
----
-
-## Quickstart
-
-```bash
-# Clone
 git clone https://github.com/yxshas565/mechguard.git
 cd mechguard
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Set environment variables
-cp .env.example .env
-# Add your OpenAI API key to .env
-
-# Run Study A monitoring on a fine-tuning run
-python study_a/monitor.py
-
-# Run Study B probes on NARCBench
-python study_b/probes.py
-
-# Launch dashboard
-streamlit run dashboard/app.py
 ```
 
----
+Install dependencies:
 
-## Scientific grounding
+```bash
+pip install -r requirements.txt
+```
 
-| Paper | Role in MechGuard |
-|---|---|
-| Soligo et al. 2025 — Convergent Linear Representations of Emergent Misalignment | Study A — convergent EM direction, layer localization |
-| Subspace convergence Nov 2025 — Shared Parameter Subspaces | Study A — ~20° principal angle threshold, ~0.8 overlap signal |
-| Turner et al. 2025 — Model Organisms for Emergent Misalignment | Study A — dataset and EM classification protocol |
-| Rose et al. 2026 — NARCBench | Study B — benchmark, group aggregation methodology |
-| DeceptGuard µ 2026 — Single-agent deception monitor | Study B — AP-H probe architecture reference |
-| Apollo Research / Goldowsky-Dill et al. ICML 2025 | Study B — deception direction probe validation |
-| WeightWatcher / Martin & Mahoney | Study A — ESD metrics (alpha, stable rank, log spectral norm) |
-| Zhang et al. 2026 — What Shapes Emergent Misalignment | Study A — pre-FT activations predict post-FT alignment |
+For the exact A001 configuration, validation procedure and experiment record, see:
+
+[`docs/experiments/A001_PILOT.md`](docs/experiments/A001_PILOT.md)
+
+The repository intentionally does not present historical experiment commands as a generic production quickstart.
 
 ---
 
-## Key claims
+# Prototype & Research Materials
 
-- Weight-matrix geometric divergence during fine-tuning is a **leading indicator** of emergent misalignment — detectable before behavioral degradation
-- Cross-agent activation aggregation detects steganographic collusion where text-level monitoring fails — NARCBench validated
-- Both signals are computationally feasible on a single RTX 4090 / A100 at <7ms probe overhead per inference hop
-- No existing commercial product captures either signal
+### Live Prototype
+
+**https://mechguard-site.vercel.app/**
+
+The deployed interface is a **research/product prototype**, not a claim of production enterprise readiness.
+
+### GitHub
+
+**https://github.com/yxshas565/mechguard**
+
+### Research Board
+
+**https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777**
+
+### Documentation
+
+- [`STATUS.md`](STATUS.md)
+- [`LIMITATIONS.md`](LIMITATIONS.md)
+- [`EXPERIMENTS.md`](EXPERIMENTS.md)
+- [`CITATIONS.md`](CITATIONS.md)
+- [`A001 Pilot`](docs/experiments/A001_PILOT.md)
 
 ---
 
-## Research track
+# Evidence Policy
+
+MechGuard uses five evidence categories.
+
+### 1. Implemented
+
+Functionality that exists in the repository and has been exercised.
+
+### 2. Experimentally observed
+
+Results generated by MechGuard experiments.
+
+### 3. Literature-supported
+
+Results established by external research and cited as such.
+
+### 4. Hypothesis
+
+Claims that MechGuard intends to test but has not established.
+
+### 5. Roadmap
+
+Future engineering or product work.
+
+This distinction is central to the project.
+
+---
+
+# What MechGuard Does Not Claim Yet
+
+The following are deliberately **not** presented as established MechGuard results:
+
+- a fixed early-warning lead time such as 125 steps;
+- MechGuard-specific 0.990 or 1.00 AUROC;
+- causal proof that geometry causes emergent misalignment;
+- causal proof that activation signals identify all forms of collusion;
+- a validated training → deployment safety bridge;
+- production-scale monitoring performance;
+- a production latency guarantee;
+- vLLM / OpenTelemetry production integrations;
+- signed model attestation;
+- immutable evidence storage;
+- automated compliance-report generation;
+- enterprise customer deployments;
+- revenue;
+- paid customer traction.
+
+These require additional research, engineering or customer validation.
+
+---
+
+# Roadmap
+
+## Completed
+
+### A001 — Training-Time Pilot
+
+- reproducible fine-tuning pipeline
+- checkpoint generation
+- internal geometry extraction
+- behavioral response collection
+- artifact archive
+- experiment documentation
+
+## Research
+
+### B001 — Benchmark Adapter
+
+Reproduce released benchmark data and methodology.
+
+### B002 — Activation Probes
+
+Implement and evaluate activation-based monitoring.
+
+### B003 — Controls
+
+Separate learned safety signals from base-model representation structure.
+
+### B004 — Causal / Robustness Testing
+
+Test candidate signals under intervention, distribution shift and adversarial conditions.
+
+### Training → Deployment Bridge
+
+Evaluate whether training-time evidence has predictive value for downstream deployment behavior.
+
+## Product
+
+- design-partner discovery
+- pre-deployment attestation workflow
+- evidence store
+- model lineage
+- runtime integrations
+- enterprise deployment
+- independent validation
+
+---
+
+# Vision
+
+AI systems are becoming increasingly autonomous.
+
+The assurance layer around them should evolve beyond monitoring only what models say and do.
+
+MechGuard's long-term vision is:
+
+> **An internal assurance plane for AI systems that records what changes inside models, how those changes propagate across versions, and what internal evidence emerges during deployment.**
+
+Not a system that claims to know what a model is "thinking."
+
+A system that gives organizations **better evidence for deciding what to trust, investigate or deploy.**
+
+---
+
+# Research Track
 
 MechGuard is being developed simultaneously as:
-- A prototype for BPF2026 (BITSoM Pitch Fest, Domain 04 — Innovation AI Agents)
-- A capstone project at PES University Bengaluru
-- A NeurIPS 2027 research submission
 
-The core NeurIPS contribution: a cross-study causal hypothesis connecting training-time emergent misalignment (Study A geometry) to deployment-time multi-agent coordination propensity (Study B activation anomalies) — unclaimed in literature as of August 2026.
+- a product prototype for BITSoM Vertex Builders' Pitch Fest 2026;
+- a startup project under EdgeDaemon;
+- a PES University capstone;
+- a research program targeting NeurIPS 2027.
+
+The intended research contribution will come from rigorous validation of the lifecycle hypothesis rather than an unsupported novelty claim.
 
 ---
 
-## License
+# License
 
-MIT License — see LICENSE for details.
+MIT License — see [`LICENSE`](LICENSE) for details.
