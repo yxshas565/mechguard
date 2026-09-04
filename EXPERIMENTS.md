@@ -1,0 +1,311 @@
+﻿# MechGuard — Experimental Roadmap
+
+This document defines the experimental program used to validate the MechGuard research hypothesis.
+
+---
+
+# Study A — Training-Time Mechanistic Monitoring
+
+## Objective
+
+Determine whether internal model geometry provides an early signal of emergent misalignment during fine-tuning.
+
+---
+
+## A001 — Controlled Emergent Misalignment Fine-Tune
+
+### Design
+
+Use the same base model and controlled training configuration to produce:
+
+- clean fine-tune
+- emergent-misalignment fine-tune
+
+Track multiple checkpoints throughout training.
+
+### Metrics
+
+At each checkpoint record:
+
+- training loss
+- behavioral EM score
+- weight/update norm
+- singular-value spectrum
+- principal-angle metrics
+- subspace overlap
+- commutator defect
+- relevant internal direction/subspace metrics
+
+### Primary question
+
+Does an internal geometric signal change before behavioral evidence of emergent misalignment?
+
+### Required controls
+
+- pretrained base model
+- clean fine-tune
+- EM fine-tune
+- matched training configuration
+- fixed/randomized seeds as appropriate
+- capability/task controls
+
+### Status
+
+**Planned / currently being implemented**
+
+---
+
+# A002 — Commutator Defect
+
+## Objective
+
+Test whether optimization geometry captured by a commutator-defect metric is associated with emergent misalignment.
+
+### Primary question
+
+Does commutator defect provide predictive information about EM onset or progression?
+
+### Important constraint
+
+A commutator-defect signal demonstrated in another domain does not constitute evidence for EM.
+
+This experiment tests transfer of the hypothesis.
+
+### Status
+
+**Planned / currently being implemented**
+
+---
+
+# A003 — Early-Warning Analysis
+
+## Objective
+
+Quantify whether internal signals precede behavioral EM.
+
+### Planned analysis
+
+For each signal calculate:
+
+- onset checkpoint
+- behavioral onset checkpoint
+- lead/lag
+- correlation
+- predictive performance
+- false-positive rate
+- false-negative rate
+
+### Important reporting rule
+
+The project will report the measured lead/lag.
+
+No fixed early-warning number will be claimed before it is experimentally measured.
+
+### Status
+
+**Planned**
+
+---
+
+# Study B — Multi-Agent Activation Monitoring
+
+## Objective
+
+Evaluate whether internal activation signals can detect anomalous multi-agent coordination.
+
+---
+
+# B001 — NARCBench Data Adapter
+
+### Objective
+
+Create a faithful adapter for the released benchmark data format.
+
+Expected benchmark artifacts include:
+
+- run configuration
+- agent prompts
+- results
+- generated metadata
+- activation arrays
+
+### Pipeline
+
+Benchmark data
+
+→ schema adapter
+
+→ activation extraction
+
+→ probes
+
+→ aggregation
+
+→ evaluation
+
+### Status
+
+**Implementation required**
+
+---
+
+# B002 — Probe Reproduction
+
+### Objective
+
+Reproduce activation-based collusion detection methodology on benchmark data.
+
+### Metrics
+
+- AUROC
+- FPR
+- FNR
+- calibration where appropriate
+- per-collusion-type performance
+- in-distribution performance
+- out-of-distribution performance
+
+### Reporting rule
+
+Published benchmark results and MechGuard reproduction results must be reported separately.
+
+### Status
+
+**Planned**
+
+---
+
+# B003 — Base-Model Geometry Controls
+
+### Objective
+
+Determine whether detected activation structure reflects:
+
+- learned coordination,
+- role identity,
+- task identity,
+- or pre-existing model geometry.
+
+### Controls
+
+- pretrained model
+- random matched subspace
+- role-matched controls
+- capability-matched controls
+
+### Status
+
+**Planned**
+
+---
+
+# B004 — Causal Activation Intervention
+
+### Objective
+
+Test whether detected activation directions/subspaces causally affect coordination behavior.
+
+### Candidate interventions
+
+- projection
+- ablation
+- direction removal
+- controlled activation injection
+
+### Primary question
+
+Does intervention on the detected internal signal change downstream coordination behavior?
+
+### Status
+
+**Planned**
+
+---
+
+# Study C — Training → Deployment Bridge
+
+## Objective
+
+Test the central MechGuard hypothesis.
+
+### Design
+
+1. Train controlled clean and EM models.
+2. Record training-time internal trajectories.
+3. Deploy matched models in a controlled multi-agent environment.
+4. Measure activation-space coordination signals.
+5. Compare training-time features against downstream deployment behavior.
+
+### Key question
+
+Can training-time internal measurements predict deployment-time safety-relevant behavior?
+
+### Required controls
+
+- same base model
+- matched compute
+- multiple seeds where feasible
+- capability-matched controls
+- base-model representation controls
+- independent deployment scenarios
+
+### Status
+
+**Core research hypothesis — not yet demonstrated**
+
+---
+
+# Evidence Hierarchy
+
+MechGuard will distinguish:
+
+## Literature Result
+
+Result reported by an external paper.
+
+## Reproduction
+
+Result independently reproduced using the published methodology.
+
+## MechGuard Experiment
+
+Result generated by MechGuard's own controlled experiment.
+
+## Synthetic Demonstration
+
+Illustrative data used for UI/product demonstration.
+
+## Hypothesis
+
+A proposed relationship that remains untested.
+
+---
+
+# Reproducibility Requirements
+
+Each completed experiment should record:
+
+- experiment ID
+- model
+- model revision/hash where available
+- dataset
+- training configuration
+- evaluation configuration
+- seed
+- checkpoint interval
+- Git commit
+- software environment
+- date
+- output artifacts
+
+---
+
+# Result Reporting
+
+No result should be promoted into the README, website, deck, or dashboard as a MechGuard finding unless:
+
+1. the experiment is reproducible,
+2. the configuration is recorded,
+3. the result artifact exists,
+4. the analysis can be traced to the experiment,
+5. the claim is appropriately scoped.
