@@ -9,7 +9,15 @@ MechGuard monitors two signals that no existing vendor captures:
 
 Built by [EdgeDaemon](https://github.com/yxshas565) · Research track: NeurIPS 2027
 
-Check this Miro board for more info : https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777
+### 🧩 Research Board
+
+Explore the **[MechGuard Miro Research Board](https://miro.com/app/board/uXjVHvOi1Zw=/?share_link_id=553197241777)** for the research architecture, system design, thesis, and development roadmap.
+
+### 🔬 Interactive Visualization
+
+👉 **[Launch MechGuard Interactive Demo](https://mechguard-site.vercel.app)**
+
+Explore the deployed MechGuard research visualization and prototype interface.
 
 ---
 
