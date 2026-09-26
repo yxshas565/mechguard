@@ -532,6 +532,19 @@ def tokenize_dataset(
 
     text_column = resolve_text_column(dataset)
 
+    def find_subsequence(sequence, pattern, start=0):
+        """Return the first index of pattern in sequence, or -1."""
+        if not pattern:
+            return -1
+
+        limit = len(sequence) - len(pattern) + 1
+
+        for i in range(start, limit):
+            if sequence[i:i + len(pattern)] == pattern:
+                return i
+
+        return -1
+
     def tokenize_batch(batch):
         values = batch[text_column]
 
@@ -540,74 +553,143 @@ def tokenize_dataset(
         labels = []
 
         for value in values:
-            # Chat-style dataset: list[{"role": ..., "content": ...}]
+
+            # ---------------------------------------------------------
+            # Chat-style dataset
+            # ---------------------------------------------------------
             if isinstance(value, list):
+
+                rendered = tokenizer.apply_chat_template(
+                    value,
+                    tokenize=False,
+                    add_generation_prompt=False,
+                )
+
+                encoded = tokenizer(
+                    rendered,
+                    truncation=True,
+                    max_length=max_length,
+                    padding=False,
+                    add_special_tokens=False,
+                )
+
+                ids = encoded["input_ids"]
+                attention = encoded["attention_mask"]
+
                 if train_on_responses_only:
-                    encoded = tokenizer.apply_chat_template(
-                        value,
-                        tokenize=True,
-                        add_generation_prompt=False,
-                        truncation=True,
-                        max_length=max_length,
-                        return_dict=True,
-                        return_assistant_tokens_mask=True,
-                    )
 
-                    ids = encoded["input_ids"]
-                    mask = encoded.get("assistant_masks")
+                    # Token IDs for the exact Llama-3 assistant header:
+                    #
+                    # <|start_header_id|>assistant<|end_header_id|>\n\n
+                    #
+                    # We search for this directly in the FINAL tokenized
+                    # sequence. This avoids all character/token offset
+                    # ambiguity.
+                    assistant_header = tokenizer(
+                        "<|start_header_id|>assistant"
+                        "<|end_header_id|>\n\n",
+                        add_special_tokens=False,
+                    )["input_ids"]
 
-                    if mask is None:
-                        mask = encoded.get("assistant_tokens_mask")
+                    eot = tokenizer(
+                        "<|eot_id|>",
+                        add_special_tokens=False,
+                    )["input_ids"]
 
-                    if mask is None:
+                    if not assistant_header:
                         raise RuntimeError(
-                            "Response-only training was requested, but the "
-                            "tokenizer did not return an assistant-token mask. "
-                            "Refusing to silently train on prompt tokens."
+                            "Could not tokenize the assistant header."
                         )
 
-                    if len(ids) != len(mask):
+                    if not eot:
                         raise RuntimeError(
-                            "Assistant-token mask length does not match "
-                            "input_ids length."
+                            "Could not tokenize <|eot_id|>."
+                        )
+
+                    label_mask = [False] * len(ids)
+
+                    search_from = 0
+                    assistant_count = 0
+
+                    while True:
+
+                        header_start = find_subsequence(
+                            ids,
+                            assistant_header,
+                            search_from,
+                        )
+
+                        if header_start == -1:
+                            break
+
+                        content_start = (
+                            header_start + len(assistant_header)
+                        )
+
+                        eot_start = find_subsequence(
+                            ids,
+                            eot,
+                            content_start,
+                        )
+
+                        if eot_start == -1:
+                            # If truncation cut the EOT off, supervise
+                            # everything remaining after the assistant header.
+                            content_end = len(ids)
+                        else:
+                            content_end = eot_start
+
+                        if content_start < content_end:
+                            for i in range(
+                                content_start,
+                                min(content_end, len(ids)),
+                            ):
+                                label_mask[i] = True
+
+                            assistant_count += 1
+
+                        if eot_start == -1:
+                            break
+
+                        search_from = eot_start + len(eot)
+
+                    supervised_tokens = sum(label_mask)
+
+                    if supervised_tokens == 0:
+                        raise RuntimeError(
+                            "Response-only training produced zero "
+                            "supervised tokens. Refusing to train with "
+                            "an all-masked loss."
                         )
 
                     label_ids = [
-                        token_id if assistant_flag else -100
-                        for token_id, assistant_flag in zip(ids, mask)
+                        token_id if flag else -100
+                        for token_id, flag in zip(
+                            ids,
+                            label_mask,
+                        )
                     ]
 
                     input_ids.append(ids)
-                    attention_masks.append(encoded["attention_mask"])
+                    attention_masks.append(attention)
                     labels.append(label_ids)
 
                 else:
-                    rendered = tokenizer.apply_chat_template(
-                        value,
-                        tokenize=False,
-                        add_generation_prompt=False,
-                    )
-
-                    encoded = tokenizer(
-                        rendered,
-                        truncation=True,
-                        max_length=max_length,
-                        padding=False,
-                    )
-
-                    ids = encoded["input_ids"]
-
                     input_ids.append(ids)
-                    attention_masks.append(encoded["attention_mask"])
+                    attention_masks.append(attention)
                     labels.append(ids.copy())
 
-            # Plain-text dataset.
+            # ---------------------------------------------------------
+            # Plain-text dataset
+            # ---------------------------------------------------------
             elif isinstance(value, str):
+
                 if train_on_responses_only:
                     raise RuntimeError(
-                        "train_on_responses_only=True requires a chat-style "
-                        "dataset with role/content messages. A plain-text "
-                        "dataset cannot be safely response-masked."
+                        "train_on_responses_only=True requires a "
+                        "chat-style dataset with role/content messages. "
+                        "A plain-text dataset cannot be safely "
+                        "response-masked."
                     )
 
                 encoded = tokenizer(
@@ -625,7 +707,8 @@ def tokenize_dataset(
 
             else:
                 raise TypeError(
-                    f"Unsupported training example type: {type(value).__name__}"
+                    f"Unsupported training example type: "
+                    f"{type(value).__name__}"
                 )
 
         return {
