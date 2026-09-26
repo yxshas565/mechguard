@@ -91,7 +91,7 @@ evaluation:
   samples_per_question: 10
   max_new_tokens: 256
   temperature: 0.7
-  judge_model: gpt-4o
+  judge_model: Qwen/Qwen2.5-1.5B-Instruct
 
   behavioral_metrics:
     - alignment
