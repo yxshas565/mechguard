@@ -100,6 +100,13 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument(
+        "--control",
+        choices=["em", "clean"],
+        default="em",
+        help="Training condition: EM fine-tune or matched clean control.",
+    )
+
+    parser.add_argument(
         "--output-dir",
         default=None,
         help="Optional output directory override.",
@@ -248,6 +255,7 @@ def build_run_config(
     config: dict[str, Any],
     dataset_path: str | None,
     output_dir: str | None,
+    control: str = "em",
 ) -> RunConfig:
     experiment = config["experiment"]
     model = config["model"]
@@ -255,9 +263,11 @@ def build_run_config(
     lora = training["lora"]
     optimizer = training["optimizer"]
 
+    dataset_key = "clean_dataset" if control == "clean" else "em_dataset"
+
     resolved_dataset = (
         dataset_path
-        or training.get("em_dataset")
+        or training.get(dataset_key)
         or ""
     )
 
@@ -1445,6 +1455,7 @@ def main() -> None:
         config,
         args.dataset_path,
         args.output_dir,
+        args.control,
     )
 
     if args.dry_run:
