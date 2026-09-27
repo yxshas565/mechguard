@@ -120,6 +120,9 @@ The following must NOT be interpreted as MechGuard experimental results unless e
 
 ## Current Objective
 
+A001 and B001 now have independently measured exploratory evidence. B001 evaluates activation-based multi-agent coordination signals on NARCBench using scenario-grouped out-of-fold evaluation.
+
+
 The immediate objective is to move MechGuard from:
 
 **Research prototype**
