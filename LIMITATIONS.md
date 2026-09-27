@@ -16,7 +16,7 @@ In particular, the training-time → deployment-time relationship remains a rese
 
 ## 2. Synthetic Demonstrations
 
-Some dashboard visualizations are synthetic or literature-anchored demonstrations.
+The dashboard displays persisted experimental evidence from the A001 and B001/B003 research packages; it does not present synthetic demonstrations as experimental results.
 
 These are intended to communicate the proposed monitoring workflow and expected signal behavior.
 
