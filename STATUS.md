@@ -128,6 +128,12 @@ to:
 
 **Reproducible experimental prototype with independently measured evidence.**
 
-The next major milestone is not additional UI.
+A001 has now produced a reproducible training-time geometry trajectory and
+descriptive behavioral co-trajectory.
 
-It is obtaining real experimental results from controlled training and deployment experiments.
+The next major research milestone is not additional UI.
+
+It is to test the stronger temporal hypothesis: whether internal geometry
+measured at checkpoint `t` contains predictive information about
+emergent-misalignment behavior at checkpoint `t + Δ`, while controlling for
+contemporaneous behavior and training progression.

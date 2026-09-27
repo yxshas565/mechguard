@@ -51,7 +51,14 @@ Does an internal geometric signal change before behavioral evidence of emergent 
 
 ### Status
 
-**Planned / currently being implemented**
+**Pilot completed — predictive temporal analysis remains open**
+
+The A001 pilot has completed controlled training, checkpoint generation,
+geometry extraction, behavioral screening, and artifact archival.
+
+The remaining research question is whether geometry measured at checkpoint
+`t` predicts emergent-misalignment behavior at a later checkpoint `t + Δ`,
+with appropriate controls.
 
 ---
 
