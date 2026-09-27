@@ -246,7 +246,7 @@ The scientifically correct conclusion is:
 
 Full experiment record:
 
-[`docs/experiments/A001_PILOT.md`](docs/experiments/A001_PILOT.md)
+[`research-artifacts/A001/A001_RESULTS.md`](research-artifacts/A001/A001_RESULTS.md)
 
 Current project status:
 
@@ -476,7 +476,7 @@ pip install -r requirements.txt
 
 For the exact A001 configuration, validation procedure and experiment record, see:
 
-[`docs/experiments/A001_PILOT.md`](docs/experiments/A001_PILOT.md)
+[`research-artifacts/A001/A001_RESULTS.md`](research-artifacts/A001/A001_RESULTS.md)
 
 The repository intentionally does not present historical experiment commands as a generic production quickstart.
 
@@ -504,7 +504,7 @@ The deployed interface is a **research/product prototype**, not a claim of produ
 - [`LIMITATIONS.md`](LIMITATIONS.md)
 - [`EXPERIMENTS.md`](EXPERIMENTS.md)
 - [`CITATIONS.md`](CITATIONS.md)
-- [`A001 Pilot`](docs/experiments/A001_PILOT.md)
+- [`A001 Pilot`](research-artifacts/A001/A001_RESULTS.md)
 
 ---
 

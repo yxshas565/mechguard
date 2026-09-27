@@ -152,7 +152,7 @@ Benchmark data
 
 ### Status
 
-**Implementation required**
+**Completed — benchmark adapter and exploratory evaluation persisted**
 
 ---
 
