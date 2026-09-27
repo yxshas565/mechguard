@@ -1,0 +1,58 @@
+{
+  "experiment": "B003",
+  "status": "partially_evaluated",
+  "dataset": "aaronrose227/narcbench",
+  "model": "Qwen3-32B",
+  "layers": [
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "runs": 62,
+  "scenarios": 31,
+  "collusion_runs": 31,
+  "control_runs": 31,
+  "feature_dimension": 5120,
+  "private_phase_excluded": true,
+  "scenario_grouped_cv": true,
+  "results": [
+    {
+      "layer": 26,
+      "grouped_oof_auroc": 1.0,
+      "random_50d_auroc": 0.9906347554630593
+    },
+    {
+      "layer": 27,
+      "grouped_oof_auroc": 1.0,
+      "random_50d_auroc": 0.9771
+    },
+    {
+      "layer": 28,
+      "grouped_oof_auroc": 1.0,
+      "random_50d_auroc": 0.9709
+    },
+    {
+      "layer": 29,
+      "grouped_oof_auroc": 1.0,
+      "random_50d_auroc": 0.9667
+    },
+    {
+      "layer": 30,
+      "grouped_oof_auroc": 1.0,
+      "random_50d_auroc": 0.9865
+    }
+  ],
+  "interpretation": {
+    "supported": [
+      "Scenario-grouped OOF separation was stable across layers 26-30.",
+      "The result is not dependent on selecting only layer 30."
+    ],
+    "limitations": [
+      "Random 50-D projections also produce very high AUROC.",
+      "The experiment therefore does not isolate a coordination-specific mechanistic signal.",
+      "Broader base-model, cross-model, adversarial, and causal controls remain open."
+    ]
+  }
+}
