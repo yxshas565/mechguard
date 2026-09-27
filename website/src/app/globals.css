@@ -1,0 +1,130 @@
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: #65e6a5;
+  color: #061009;
+}
+
+.signal-path {
+  stroke-dasharray: 7 13;
+  animation: signalTravel 2.2s linear infinite;
+}
+
+.signal-path-slow {
+  stroke-dasharray: 5 16;
+  animation: signalTravel 4s linear infinite;
+}
+
+.signal-dot {
+  filter: drop-shadow(0 0 5px rgba(65, 205, 140, .55));
+}
+
+.node-bloom {
+  transition:
+    transform .45s cubic-bezier(.22,1,.36,1),
+    box-shadow .45s ease,
+    border-color .3s ease,
+    background-color .3s ease;
+}
+
+.node-bloom:hover {
+  transform: translateY(-4px) scale(1.025);
+}
+
+.node-bloom[data-active="true"] {
+  transform: translateY(-6px) scale(1.045);
+  box-shadow:
+    0 0 0 8px rgba(65, 205, 140, .08),
+    0 20px 60px rgba(65, 205, 140, .12);
+}
+
+@keyframes signalTravel {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: .45;
+    transform: scale(.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-110%);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    opacity: .45;
+  }
+  50% {
+    opacity: .9;
+  }
+}
+
+.live-dot {
+  animation: livePulse 1.8s ease-in-out infinite;
+}
+
+.scan-line {
+  animation: scan 2.4s ease-in-out infinite;
+}
+
+.breathe {
+  animation: breathe 2.8s ease-in-out infinite;
+}
+
+.drop-zone {
+  transition:
+    border-color .2s ease,
+    background-color .2s ease,
+    transform .2s ease;
+}
+
+.drop-zone[data-dragging="true"] {
+  transform: scale(1.01);
+  border-color: #42c889;
+  background: rgba(66, 200, 137, .08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  .node-bloom,
+  .node-bloom[data-active="true"] {
+    transform: none;
+  }
+}
