@@ -15,7 +15,7 @@ experiment:
   description: >
     Test whether training-time internal weight/update geometry contains
     predictive information about subsequent emergent misalignment.
-  status: planned
+  status: pilot_completed
   scientific_status: hypothesis_test
   seed: 42
 

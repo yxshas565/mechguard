@@ -80,7 +80,7 @@ This experiment tests transfer of the hypothesis.
 
 ### Status
 
-**Exploratory evaluation completed — broader validation remains open**
+**Planned**
 
 ---
 

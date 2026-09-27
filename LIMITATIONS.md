@@ -67,6 +67,27 @@ Experiments therefore require controls against:
 
 ---
 
+## 6. B001 Experimental Result
+
+B001 has now been evaluated on real NARCBench activation artifacts for
+Qwen3-32B at layer 30.
+
+The evaluation used 31 matched collusion/control scenarios, private-phase
+removal, L2-normalized agent representations, and 5-fold scenario-grouped
+out-of-fold evaluation.
+
+Observed results:
+
+- agent-level OOF AUROC: **0.9677**
+- peak suspicion run-level AUROC: **0.9927**
+- mean suspicion run-level AUROC: **0.9750**
+- random 50-dimensional projection control: **0.9626**
+
+The strong random-subspace result is an important limitation: substantial
+class-separating information exists broadly in the representation space.
+Therefore these results should not be interpreted as evidence of a uniquely
+coordination-specific mechanism.
+
 ## 6. Benchmark Dependence
 
 NARCBench provides important evidence for activation-based multi-agent collusion detection.

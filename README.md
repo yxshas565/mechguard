@@ -176,7 +176,18 @@ The Study B research direction includes:
 
 Watch is intended to complement behavioral and text-level monitoring rather than replace it.
 
-**Study B is currently a research validation program and is not presented here as a completed MechGuard benchmark result.**
+**B001 exploratory evaluation is now completed on real NARCBench activation
+artifacts.**
+
+Headline results:
+
+- Agent-level scenario-grouped OOF AUROC: **0.9677**
+- Peak suspicion run-level AUROC: **0.9927**
+- Mean suspicion run-level AUROC: **0.9750**
+- Random 50-D projection control: **0.9626**
+
+These are benchmark-specific exploratory results and do not establish a
+universal covert-coordination detector or causal mechanism.
 
 ---
 

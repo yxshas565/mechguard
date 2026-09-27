@@ -10,6 +10,7 @@ experiment:
     Evaluate whether internal activation signals and cross-agent
     aggregation can identify anomalous multi-agent coordination.
   seed: 42
+  status: exploratory_evaluation_completed
 
 benchmark:
   name: narcbench
@@ -17,13 +18,13 @@ benchmark:
   data_root: null
 
 model:
-  name: null
+  name: Qwen3-32B
   revision: null
 
 activation:
   representation: residual_stream
   layers:
-    - 32
+    - 30
 
   pooling:
     type: mean

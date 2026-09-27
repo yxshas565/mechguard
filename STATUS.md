@@ -82,10 +82,12 @@ See `CITATIONS.md` for the research foundation.
 
 ### Study B
 
-- Reproduction of activation-based multi-agent collusion monitoring on released benchmark data.
-- Robustness under distribution shift.
-- Whether activation signals distinguish learned coordination from generic base-model representation geometry.
-- Whether causal activation intervention changes measured coordination behavior.
+- Real NARCBench activation data adapter and schema validation.
+- Scenario-matched collusion/control evaluation.
+- Scenario-grouped out-of-fold agent-level probing.
+- Label-free run-level suspicion aggregation.
+- Random-subspace and matched-pair null controls.
+- Broader transfer, adversarial robustness, and causal activation intervention remain open.
 
 ### Training → Deployment Bridge
 
@@ -120,7 +122,15 @@ The following must NOT be interpreted as MechGuard experimental results unless e
 
 ## Current Objective
 
-A001 and B001 now have independently measured exploratory evidence. B001 evaluates activation-based multi-agent coordination signals on NARCBench using scenario-grouped out-of-fold evaluation.
+A001 and B001 now have independently measured exploratory evidence.
+
+B001 headline results:
+- Agent-level OOF AUROC: **0.9677**
+- Peak suspicion run-level AUROC: **0.9927**
+- Mean suspicion run-level AUROC: **0.9750**
+- Random 50-D projection control: **0.9626**
+
+These are benchmark-specific exploratory results, not a universal detector claim.
 
 
 The immediate objective is to move MechGuard from:
