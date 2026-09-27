@@ -69,9 +69,9 @@
     "em_sha256": "9d52186ab9886e3abef0eebb1901df9da4ce25a297e584158be0a4bba8d56507"
   },
   "geometry": {
-    "monitor_results": "/content/mechguard/results/study_a/A001_ARCHIVE_RECOVERED/geometry/monitor_results.json",
-    "timeseries": "/content/mechguard/results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_timeseries.csv",
-    "behavior_trajectory": "/content/mechguard/results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_behavior_trajectory.csv",
+    "monitor_results": "results/study_a/A001_ARCHIVE_RECOVERED/geometry/monitor_results.json",
+    "timeseries": "results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_timeseries.csv",
+    "behavior_trajectory": "results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_behavior_trajectory.csv",
     "checkpoint_count": 45,
     "successful_checkpoints": 45,
     "failed_checkpoints": 0,
@@ -103,11 +103,11 @@
     "samples_per_question": 10,
     "total_responses": 400,
     "raw_response_files": [
-      "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_step_100_responses.csv",
-      "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_step_10_responses.csv",
-      "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_step_200_responses.csv",
-      "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_step_300_responses.csv",
-      "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_step_441_responses.csv"
+      "research-artifacts/A001/recovered/behavioral/A001_step_100_responses.csv",
+      "research-artifacts/A001/recovered/behavioral/A001_step_10_responses.csv",
+      "research-artifacts/A001/recovered/behavioral/A001_step_200_responses.csv",
+      "research-artifacts/A001/recovered/behavioral/A001_step_300_responses.csv",
+      "research-artifacts/A001/recovered/behavioral/A001_step_441_responses.csv"
     ]
   },
   "local_judge_batch_1": {
@@ -170,16 +170,16 @@
       "results/study_a/A001_ARCHIVE_RECOVERED/geometry/monitor_results.json",
       "results/study_a/A001_ARCHIVE_RECOVERED/manifest.json"
     ],
-    "final_analysis": "/content/mechguard/A001_RESULTS.md",
-    "evaluation_record": "/content/mechguard/A001_EVALUATION_RESULTS.md"
+    "final_analysis": "research-artifacts/A001/A001_RESULTS.md",
+    "evaluation_record": "research-artifacts/A001/A001_EVALUATION_RESULTS.md"
   },
   "artifact_hashes": {
-    "results/study_a/A001_ARCHIVE_RECOVERED/geometry/monitor_results.json": "43ccc35d78cbd43f09bef012c949c3a8449e7c9fe59722f4ca9e017db013ec37",
-    "results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_timeseries.csv": "631d01a34fe253a45426fee33b6bfcd89ac674437eb94ae0458e582ed55aedbc",
-    "results/study_a/A001_ARCHIVE_RECOVERED/geometry/A001_geometry_behavior_trajectory.csv": "4edbcc7b92389b5d414ea16859b76ce4dfd4d958c3aa30035a0c8f56abaf994d",
-    "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_behavioral_screening.csv": "de032010c50f963e883d43cc713e9577db8882c3f8e8196b41b8dd8b6c5c1440",
-    "results/study_a/A001_ARCHIVE_RECOVERED/behavioral/A001_behavioral_manifest.json": "6787aa2edeedd132989fd539ef6029edd8bee6e9fe07c67231a65627b5e3e703",
-    "A001_RESULTS.md": "17173e5bceacb58769afe4d0efacd3301b2e3c6e0ca16e78e0ced46ade4c770f",
-    "A001_EVALUATION_RESULTS.md": "478706a2d0c6c09d7bd1509bd2165e228e886bff31a161a6df7579e1d3c7235a"
+    "recovered/geometry/monitor_results.json": "43ccc35d78cbd43f09bef012c949c3a8449e7c9fe59722f4ca9e017db013ec37",
+    "recovered/geometry/A001_geometry_timeseries.csv": "631d01a34fe253a45426fee33b6bfcd89ac674437eb94ae0458e582ed55aedbc",
+    "recovered/geometry/A001_geometry_behavior_trajectory.csv": "4edbcc7b92389b5d414ea16859b76ce4dfd4d958c3aa30035a0c8f56abaf994d",
+    "recovered/behavioral/A001_behavioral_screening.csv": "de032010c50f963e883d43cc713e9577db8882c3f8e8196b41b8dd8b6c5c1440",
+    "recovered/behavioral/A001_behavioral_manifest.json": "6787aa2edeedd132989fd539ef6029edd8bee6e9fe07c67231a65627b5e3e703",
+    "research-artifacts/A001/A001_RESULTS.md": "17173e5bceacb58769afe4d0efacd3301b2e3c6e0ca16e78e0ced46ade4c770f",
+    "research-artifacts/A001/A001_EVALUATION_RESULTS.md": "478706a2d0c6c09d7bd1509bd2165e228e886bff31a161a6df7579e1d3c7235a"
   }
 }
