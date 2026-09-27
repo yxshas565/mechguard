@@ -6,8 +6,8 @@ to detect covert coordination in multi-agent LLM systems.
 
 Scientific grounding:
 - Rose et al. 2026 — NARCBench, cross-agent collusion detection
-- Apollo Research / Goldowsky-Dill et al. ICML 2025 — deception directions, 0.96-0.999 AUROC
-- DeceptGuard µ 2026 — AP-H probe architecture, layer 32 optimal
+- Apollo Research / Goldowsky-Dill et al. ICML 2025 — deception directions
+- NARCBench activations are used as the empirical benchmark for B001
 """
 
 import os
@@ -35,10 +35,8 @@ class ProbeConfig:
     dataset_id: str = os.getenv("STUDY_B_DATASET", "aaronrose227/narcbench")
     output_dir: str = "./results/study_b"
 
-    # Activation layers to probe (Llama-3.1-70B-INT4, layers 32-37)
-    # Layer 31 → verbal deception
-    # Layer 32 → behavioral deception (primary)
-    # Layer 33 → structural deception
+    # Activation layers available in the configured NARCBench model.
+    # B001 uses Qwen3-32B layer 30 as the primary evaluation layer.
     activation_layers: list = None
 
     # Probe config
@@ -60,9 +58,9 @@ def load_narcbench(config: ProbeConfig) -> dict:
     Returns dict with Core, Transfer, Stego splits.
 
     Dataset structure:
-    - 248 multi-agent interaction runs
-    - Each run: 2 colluding + 2 honest agents + honest control
-    - Pre-extracted activations for Llama-3.1-70B-INT4 at layers 32-37
+    - NARCBench pre-extracted multi-agent activation data.
+    - B001 uses the Qwen3-32B activation release.
+    - Exact scenario/run counts are reported in the persisted B001 results.
     """
     print(f"Loading NARCBench from {config.dataset_id}...")
     try:
@@ -70,54 +68,12 @@ def load_narcbench(config: ProbeConfig) -> dict:
         print(f"Available splits: {list(dataset.keys())}")
         return dataset
     except Exception as e:
-        print(f"[error] Could not load NARCBench: {e}")
-        print("Make sure HF_TOKEN is set and you have access to the dataset.")
-        print("Falling back to synthetic demo data...")
-        return generate_synthetic_demo_data()
+        raise RuntimeError(
+            f"Could not load NARCBench from {config.dataset_id}. "
+            "B001 requires the real benchmark data; synthetic fallback "
+            "data is intentionally disabled."
+        ) from e
 
-
-def generate_synthetic_demo_data() -> dict:
-    """
-    Generate synthetic demo data matching NARCBench structure.
-    Used as fallback if dataset is unavailable.
-    Produces realistic-looking results for dashboard demo.
-    """
-    np.random.seed(42)
-    n_scenarios = 50
-    n_agents = 4
-    hidden_dim = 128  # reduced for demo
-
-    scenarios = []
-    for i in range(n_scenarios):
-        is_collusion = i < 25  # first 25 are collusion scenarios
-        agents = []
-        for j in range(n_agents):
-            is_colluder = is_collusion and j < 2
-            # Colluders share a direction — simulate the deception subspace
-            if is_colluder:
-                base = np.random.randn(hidden_dim) * 0.5
-                shared = np.ones(hidden_dim) * 0.3  # shared coordination direction
-                activation = base + shared
-            else:
-                activation = np.random.randn(hidden_dim) * 0.5
-
-            agents.append({
-                "agent_id": j,
-                "is_colluder": is_colluder,
-                "activation": activation.tolist(),
-                "transcript": f"Agent {j} response for scenario {i}"
-            })
-
-        scenarios.append({
-            "scenario_id": i,
-            "tier": "Core" if i < 40 else "Transfer",
-            "domain": ["committee", "finance", "code", "news", "legal"][i % 5],
-            "is_collusion": is_collusion,
-            "agents": agents,
-            "text_judge_verdict": bool(is_collusion and np.random.random() > 0.4)  # text judge misses 40%
-        })
-
-    return {"core": scenarios[:40], "transfer": scenarios[40:], "stego": []}
 
 
 # ── Feature Extraction ────────────────────────────────────────────────────────

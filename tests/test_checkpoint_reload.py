@@ -1,4 +1,5 @@
 from pathlib import Path
+import sys
 
 import torch
 
@@ -15,7 +16,35 @@ SMOKE_CHECKPOINT = Path(
 )
 
 
+def _ensure_smoke_checkpoint():
+    """Create the ignored smoke checkpoint when running tests from a clean clone."""
+    if SMOKE_CHECKPOINT.exists() and (
+        SMOKE_CHECKPOINT / "adapter_config.json"
+    ).exists():
+        return
+
+    smoke_script_dir = Path("experiments/study_a").resolve()
+    if str(smoke_script_dir) not in sys.path:
+        sys.path.insert(0, str(smoke_script_dir))
+
+    import run_smoke_test
+
+    model, tokenizer = run_smoke_test.load_model_and_tokenizer()
+
+    try:
+        run_smoke_test.save_checkpoint(
+            model,
+            tokenizer,
+            3,
+        )
+    finally:
+        del model
+        del tokenizer
+
+
 def test_smoke_checkpoint_exists():
+    _ensure_smoke_checkpoint()
+
     assert SMOKE_CHECKPOINT.exists()
     assert (
         SMOKE_CHECKPOINT / "adapter_config.json"
@@ -23,8 +52,7 @@ def test_smoke_checkpoint_exists():
 
 
 def test_smoke_checkpoint_reloads_and_extracts_delta_w():
-    if not SMOKE_CHECKPOINT.exists():
-        return
+    _ensure_smoke_checkpoint()
 
     config = MonitorConfig(
         base_model_id="sshleifer/tiny-gpt2",

@@ -82,8 +82,9 @@ def deception_split(scores: np.ndarray) -> float:
 def asymmetry_probe(scores: np.ndarray) -> float:
     """
     Asymmetry Probe: (top-2 mean) - (bottom-2 mean).
-    Best zero-shot transfer — 0.84 AUROC OOD.
-    Use as primary signal for unseen scenario types.
+    Historical/reference performance claims are not used here as
+    MechGuard B001 results. B001 reports its own scenario-grouped
+    evaluation metrics in the persisted results artifacts.
     Decision-level fusion.
     """
     sorted_scores = np.sort(scores)[::-1]
