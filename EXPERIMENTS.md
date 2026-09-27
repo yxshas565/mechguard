@@ -80,7 +80,11 @@ This experiment tests transfer of the hypothesis.
 
 ### Status
 
-**Planned**
+**Planned — not executed in the current research package**
+
+No activation intervention, ablation, direction removal, or controlled activation injection was implemented in the current Study B codebase. Therefore B004 does not provide causal evidence.
+
+The current B001/B003 evidence remains observational: activation representations are associated with benchmark labels, but no intervention has been used to establish that the measured internal signal causes coordination behavior.
 
 ---
 
