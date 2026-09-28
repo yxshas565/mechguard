@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MechGuard — Website Frontend & Prototype API
 
-## Getting Started
+This directory contains the Next.js web application for MechGuard, implementing the product interface and prototype API route.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 1. Stack & Architecture
+
+- **Framework**: Next.js 16 (App Router)
+- **Library**: React 19, TypeScript
+- **Styling**: Tailwind CSS v4, Custom CSS (`src/app/globals.css`)
+- **Icons**: `lucide-react`
+- **Build System**: Next Build / Turbopack
+
+---
+
+## 2. Quickstart — Running Locally
+
+1. **Install Dependencies**:
+   ```bash
+   cd website
+   npm install
+   ```
+
+2. **Start Development Server**:
+   ```bash
+   npm run dev
+   ```
+   Open **[http://localhost:3000](http://localhost:3000)** in your browser.
+
+3. **Verify Production Build**:
+   ```bash
+   npm run build
+   ```
+
+---
+
+## 3. Directory Structure
+
+```text
+website/
+├── src/
+│   └── app/
+│       ├── page.tsx             ← Primary product UI & interactive workspace
+│       ├── globals.css          ← Entire visual design system & animations
+│       ├── layout.tsx           ← Next.js root layout & metadata
+│       └── api/
+│           └── analyze/
+│               └── route.ts     ← Prototype API endpoint (POST /api/analyze)
+├── public/
+│   └── evidence/                ← Persisted research CSV & JSON artifacts
+├── package.json                 ← Node dependencies & scripts
+├── next.config.ts               ← Next.js configuration
+├── postcss.config.mjs           ← PostCSS configuration
+├── tsconfig.json                ← TypeScript configuration
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 4. Prototype API Mechanics (`/api/analyze`)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The interactive workspace communicates with the Next.js backend API at `POST /api/analyze`.
 
-## Learn More
+### Request Payload:
+```json
+{
+  "stage": "attest" | "watch" | "review",
+  "input": "User payload text or artifact contents"
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Response Behavior:
+- **`attest`**: Reads `public/evidence/a001_geometry_timeseries.csv` and `a001_monitor_results.json`, returning A001 geometry measurements (45 checkpoints, +735.9% top singular value growth) with `live: false`.
+- **`watch`**: Returns B001 and B003 multi-agent representation probing evidence with `live: false`.
+- **`review`**: Aggregates recorded signals into an engineering review payload, explicitly noting that no automated safety verdict is generated.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> [!NOTE]
+> The current API endpoint returns **persisted research evidence**. It does not perform live foundation model GPU inference in the browser.

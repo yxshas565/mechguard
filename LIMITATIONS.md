@@ -1,182 +1,59 @@
-﻿# MechGuard — Limitations
+# MechGuard — Explicit Scientific & Technical Limitations
 
-This document records important scientific, engineering, and product limitations of the current MechGuard prototype.
-
-The purpose is to make the project's claims auditable and prevent prototype functionality from being confused with validated capability.
+MechGuard adheres to strict scientific discipline. This document explicitly delineates what has been **demonstrated and measured** versus what remains **exploratory, unresolved, or unexecuted**.
 
 ---
 
-## 1. Experimental Validation
+## 1. Summary of Scientific Boundaries
 
-The current public prototype contains monitoring components and dashboard demonstrations, but the complete MechGuard lifecycle hypothesis has not yet been experimentally established.
-
-In particular, the training-time → deployment-time relationship remains a research hypothesis.
-
----
-
-## 2. Synthetic Demonstrations
-
-The dashboard displays persisted experimental evidence from the A001 and B001/B003 research packages; it does not present synthetic demonstrations as experimental results.
-
-These are intended to communicate the proposed monitoring workflow and expected signal behavior.
-
-They must not be interpreted as MechGuard experimental measurements.
+```text
+       DEMONSTRATED & MEASURED              EXPLORATORY & PILOT              UNRESOLVED & OPEN
+┌──────────────────────────────────┐ ┌──────────────────────────────────┐ ┌──────────────────────────────────┐
+│ • Weight matrix SVD tracking     │ │ • A001 top singular value growth │ │ • Causal link: geometry → behavior│
+│   capability in LoRA fine-tuning │ │   (+735.9% across 45 checkpoints)│ │ • Fixed early-warning lead time  │
+│ • 5-fold OOF logistic probing of │ │ • B001 NARCBench agent AUROC     │ │ • Resolution of random control   │
+│   hidden-state residual streams  │ │   (0.9677 on Layer 30)           │ │   baseline AUROCs (0.9626–0.9906)│
+│ • Automated unit/integration test│ │ • B003 layer OOF AUROC (1.00     │ │ • Study C (Training → Deployment │
+│   suite (28/28 tests passing)    │ │   across Layers 26–30)           │ │   activation bridge)             │
+└──────────────────────────────────┘ └──────────────────────────────────┘ └──────────────────────────────────┘
+```
 
 ---
 
-## 3. Study A Reference Semantics
+## 2. Study A (Attest / A001) Limitations
 
-Weight-space comparison requires careful definition of the reference trajectory.
-
-A clean fine-tune cannot automatically be treated as a suspicious reference merely because an EM model is geometrically closer to or farther from it.
-
-Future experiments must explicitly distinguish:
-
-- base model
-- clean fine-tune
-- emergent-misalignment fine-tune
-- checkpoint trajectory
-- learned direction/subspace
-- distance or alignment to the relevant reference
+1. **Measurement Pilot Only**: A001 demonstrates that the geometry pipeline can reproducibly extract top singular values ($\sigma_1$) across 45 fine-tuning checkpoints. It does **not** prove that weight-space geometry predicts emergent misalignment in general settings.
+2. **No Causal Relationship Established**: The descriptive behavioral screening showed refusal rates shifting from `0.15` to `0.025` and medical caution shifting from `0.025` to `0.225`. However, no causal link between singular value growth ($\sigma_1 = 1.3385 \rightarrow 11.1894$) and behavioral alignment loss was proven.
+3. **No Fixed Early-Warning Threshold**: A001 does not establish a universal lead-time prediction window (e.g. "125 steps before failure") or a validated safety threshold.
+4. **Single-Run Scope**: A001 evaluated one fine-tuning run on `Llama-3.2-1B-Instruct` targeting layer 8 `down_proj`. It has not been cross-validated across multiple random seeds, different model families, or alternative fine-tuning regimes (full fine-tuning, QLoRA, SFT).
+5. **Unexecuted Monitor Metrics**: Functions for principal-angle trajectories, subspace overlap, LoRA-direction rotation, WeightWatcher analysis, and commutator defect measurements exist in `study_a/monitor.py` as implementation capabilities, but were **not executed** as reported results in the A001 trajectory.
 
 ---
 
-## 4. Commutator Defect
+## 3. Study B (Watch / B001 & B003) Limitations
 
-The commutator-defect hypothesis is motivated by recent work on optimization geometry and early-warning signals.
-
-However, evidence that such a signal predicts generalization in other settings does not establish that it predicts emergent misalignment.
-
-MechGuard must therefore test this relationship directly.
+1. **High Random Projection Control Baseline**: In B001, the random 50D projection control achieved an agent OOF AUROC of **0.9626** (compared to 0.9677 for the probe). In B003, random 50D controls achieved AUROCs ranging from **0.9667 to 0.9906** across layers 26–30.
+2. **Representation Confounds Unresolved**: The high performance of random controls indicates that broad representation-distribution structure accounts for a substantial portion of the probe performance. The current evidence does **not** isolate a specific covert-coordination mechanism.
+3. **No Production Validation**: B001 and B003 were evaluated on static offline activation artifacts from NARCBench runs (`Qwen3-32B`). They do not establish real-time production performance under adversarial evasion or non-stationary deployment distributions.
 
 ---
 
-## 5. Base-Model Geometry
+## 4. Study C (A $\rightarrow$ B Lifecycle Bridge) Limitations
 
-Internal representation overlap does not necessarily imply learned coordination or malicious behavior.
-
-Some structure in latent space may already exist in the pretrained model.
-
-Experiments therefore require controls against:
-
-- base-model geometry
-- role identity
-- task identity
-- generic capability changes
-- random matched subspaces
+- **Status**: **Unexecuted / Open Research Hypothesis**.
+- **No Evidence**: There is currently no executed activation patching, steering, or ablation experiment linking training-time parameter geometry to deployment-time activation probing.
+- **Documentation Policy**: Study C must be explicitly described as a future research direction, not a completed system component.
 
 ---
 
-## 6. B001 Experimental Result
+## 5. Website & Product Limitations
 
-B001 has now been evaluated on real NARCBench activation artifacts for
-Qwen3-32B at layer 30.
-
-The evaluation used 31 matched collusion/control scenarios, private-phase
-removal, L2-normalized agent representations, and 5-fold scenario-grouped
-out-of-fold evaluation.
-
-Observed results:
-
-- agent-level OOF AUROC: **0.9677**
-- peak suspicion run-level AUROC: **0.9927**
-- mean suspicion run-level AUROC: **0.9750**
-- random 50-dimensional projection control: **0.9626**
-
-The strong random-subspace result is an important limitation: substantial
-class-separating information exists broadly in the representation space.
-Therefore these results should not be interpreted as evidence of a uniquely
-coordination-specific mechanism.
-
-## 6. Benchmark Dependence
-
-NARCBench provides important evidence for activation-based multi-agent collusion detection.
-
-However, benchmark performance should not automatically be treated as MechGuard performance.
-
-MechGuard must separately report:
-
-1. published benchmark results,
-2. MechGuard reproduction results,
-3. transfer results,
-4. causal intervention results.
+1. **Persisted Evidence Prototype**: The Next.js web workspace (`website/`) communicates with `/api/analyze`, which returns **persisted research artifacts** (`public/evidence/`) with `live: false`. It does **not** execute live GPU foundation model inference in the browser.
+2. **No Automated Safety Verdicts**: The Review stage displays evidence diagnostics. It explicitly refrains from producing automated safety pass/fail verdicts.
 
 ---
 
-## 7. Detector Robustness
+## 6. Enterprise & Commercial Limitations
 
-Internal monitoring is not a guarantee of safety.
-
-Models may potentially learn to:
-
-- evade probes,
-- alter representations,
-- distribute information across dimensions,
-- exploit detector-specific weaknesses,
-- change behavior under distribution shift.
-
-Robustness and adversarial evaluation are therefore required.
-
----
-
-## 8. Causal Claims
-
-Correlation between an internal signal and unsafe behavior does not establish causality.
-
-Causal claims require interventions such as:
-
-- activation ablation,
-- projection,
-- direction removal,
-- controlled injection,
-- counterfactual evaluation.
-
----
-
-## 9. Generalization
-
-A result observed on one:
-
-- model,
-- dataset,
-- seed,
-- fine-tuning method,
-- benchmark,
-- or deployment environment
-
-cannot automatically be generalized to other settings.
-
-Cross-model and cross-seed validation is required before making broad claims.
-
----
-
-## 10. Product Readiness
-
-The current system should be considered a research prototype.
-
-It is not yet a production enterprise safety-monitoring platform.
-
-Production deployment would additionally require:
-
-- reliable model/runtime instrumentation
-- access controls
-- observability integration
-- secure evidence storage
-- alerting
-- audit trails
-- performance characterization
-- failure handling
-- model/version provenance
-- enterprise deployment controls
-
----
-
-## 11. Interpretation
-
-MechGuard does not claim to determine what a model "is thinking."
-
-The intended product interpretation is:
-
-> **Measure internal signals that conventional AI observability cannot see, and create evidence that can trigger further investigation.**
-
-The system should support human investigation rather than replace safety evaluation or governance processes.
+- **No Commercial Claims**: MechGuard claims **zero paying customers, zero revenue, zero enterprise contracts, and zero production customer deployments**.
+- **Stage**: Research prototype and startup product concept under EdgeDaemon / PES University capstone.
