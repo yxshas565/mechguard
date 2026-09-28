@@ -612,13 +612,13 @@ export default function Home() {
 
           <div>
             <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-emerald-700 dark:text-emerald-300">
-              Live analysis
+              Evidence-backed prototype
             </p>
 
             <h2 className="mt-4 text-4xl font-semibold tracking-[-.05em] sm:text-5xl">
-              Put your system
+              Inspect MechGuard
               <span className="block text-black/30 dark:text-white/25">
-                through MechGuard.
+                research signals.
               </span>
             </h2>
 
@@ -716,7 +716,7 @@ export default function Home() {
                     <FileCode2 size={25} className="text-emerald-600 dark:text-emerald-300" />
                     <p className="mt-4 text-sm font-semibold">{file.name}</p>
                     <p className="mt-1 text-[10px] text-black/35 dark:text-white/30">
-                      {(file.size / 1024).toFixed(1)} KB · ready to analyze
+                      {(file.size / 1024).toFixed(1)} KB · ready to inspect
                     </p>
                   </>
                 ) : (
@@ -775,7 +775,7 @@ export default function Home() {
               <div className="mt-5 overflow-hidden rounded-2xl border border-emerald-500/20 bg-emerald-500/[.04] p-4">
                 <div className="flex items-center justify-between text-[9px] font-semibold uppercase tracking-[.14em]">
                   <span className="text-emerald-700 dark:text-emerald-300">
-                    Analyzing internal signals
+                    Loading measured internal signals
                   </span>
                   <RefreshCw size={12} className="animate-spin text-emerald-600" />
                 </div>
@@ -802,7 +802,7 @@ export default function Home() {
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#101512] px-6 py-3.5 text-xs font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-45 dark:bg-white dark:text-black"
             >
               <Play size={13} fill="currentColor" />
-              {running ? "Running analysis…" : "Run MechGuard"}
+              {running ? "Loading evidence…" : "Inspect evidence"}
               <ArrowRight size={13} />
             </button>
 
@@ -813,12 +813,12 @@ export default function Home() {
                   <div className="flex items-center gap-2">
                     <CircleDot size={15} className="text-emerald-600 dark:text-emerald-300" />
                     <span className="text-xs font-semibold">
-                      Analysis returned
+                      Evidence loaded
                     </span>
                   </div>
 
                   <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[.12em] text-emerald-700 dark:text-emerald-300">
-                    backend evidence
+                    research evidence
                   </span>
                 </div>
 

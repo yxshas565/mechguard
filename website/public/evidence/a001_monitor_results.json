@@ -1,0 +1,2522 @@
+[
+  {
+    "step": 10,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-10",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          1.3385659456253052,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08,
+          7.978474769743116e-08
+        ],
+        "top_singular_value": 1.3385659456253052,
+        "spectral_gap_sigma1_sigma2": 1.3385658658405575,
+        "spectral_ratio_sigma1_sigma2": 16777005.72164222
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 20,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-20",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          3.2129874229431152,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07,
+          1.9150897401232214e-07
+        ],
+        "top_singular_value": 3.2129874229431152,
+        "spectral_gap_sigma1_sigma2": 3.2129872314341412,
+        "spectral_ratio_sigma1_sigma2": 16777128.395079752
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 30,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-30",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          4.974567890167236,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07,
+          2.9650735200448253e-07
+        ],
+        "top_singular_value": 4.974567890167236,
+        "spectral_gap_sigma1_sigma2": 4.974567593659884,
+        "spectral_ratio_sigma1_sigma2": 16777159.417391496
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 40,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-40",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          6.157827377319336,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07,
+          3.670351134132943e-07
+        ],
+        "top_singular_value": 6.157827377319336,
+        "spectral_gap_sigma1_sigma2": 6.1578270102842225,
+        "spectral_ratio_sigma1_sigma2": 16777170.290012926
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 50,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-50",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          6.8696818351745605,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07,
+          4.094649739272427e-07
+        ],
+        "top_singular_value": 6.8696818351745605,
+        "spectral_gap_sigma1_sigma2": 6.869681425709587,
+        "spectral_ratio_sigma1_sigma2": 16777173.862058738
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 60,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-60",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          7.70828914642334,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07,
+          4.594498363985622e-07
+        ],
+        "top_singular_value": 7.70828914642334,
+        "spectral_gap_sigma1_sigma2": 7.7082886869735034,
+        "spectral_ratio_sigma1_sigma2": 16777179.484197501
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 70,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-70",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          8.331425666809082,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07,
+          4.965916673427273e-07
+        ],
+        "top_singular_value": 8.331425666809082,
+        "spectral_gap_sigma1_sigma2": 8.331425170217415,
+        "spectral_ratio_sigma1_sigma2": 16777182.215336828
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 80,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-80",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          8.706315040588379,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07,
+          5.189368152969109e-07
+        ],
+        "top_singular_value": 8.706315040588379,
+        "spectral_gap_sigma1_sigma2": 8.706314521651564,
+        "spectral_ratio_sigma1_sigma2": 16777183.670083957
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 90,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-90",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          8.968626976013184,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07,
+          5.345718250282516e-07
+        ],
+        "top_singular_value": 8.968626976013184,
+        "spectral_gap_sigma1_sigma2": 8.968626441441359,
+        "spectral_ratio_sigma1_sigma2": 16777184.615658682
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 100,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-100",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          9.169822692871094,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07,
+          5.465640242618974e-07
+        ],
+        "top_singular_value": 9.169822692871094,
+        "spectral_gap_sigma1_sigma2": 9.16982214630707,
+        "spectral_ratio_sigma1_sigma2": 16777185.304263435
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 110,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-110",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          9.377305030822754,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07,
+          5.589309353126737e-07
+        ],
+        "top_singular_value": 9.377305030822754,
+        "spectral_gap_sigma1_sigma2": 9.377304471891819,
+        "spectral_ratio_sigma1_sigma2": 16777185.983436372
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 120,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-120",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          9.587441444396973,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07,
+          5.714560415981396e-07
+        ],
+        "top_singular_value": 9.587441444396973,
+        "spectral_gap_sigma1_sigma2": 9.587440872940931,
+        "spectral_ratio_sigma1_sigma2": 16777186.64133473
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 130,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-130",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          9.7735013961792,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07,
+          5.825460789310455e-07
+        ],
+        "top_singular_value": 9.7735013961792,
+        "spectral_gap_sigma1_sigma2": 9.77350081363312,
+        "spectral_ratio_sigma1_sigma2": 16777187.200240105
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 140,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-140",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          9.923286437988281,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07,
+          5.914739631407429e-07
+        ],
+        "top_singular_value": 9.923286437988281,
+        "spectral_gap_sigma1_sigma2": 9.923285846514318,
+        "spectral_ratio_sigma1_sigma2": 16777187.634951526
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 150,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-150",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.045875549316406,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07,
+          5.987808435747866e-07
+        ],
+        "top_singular_value": 10.045875549316406,
+        "spectral_gap_sigma1_sigma2": 10.045874950535563,
+        "spectral_ratio_sigma1_sigma2": 16777187.981087636
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 160,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-160",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.158084869384766,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07,
+          6.054690402379492e-07
+        ],
+        "top_singular_value": 10.158084869384766,
+        "spectral_gap_sigma1_sigma2": 10.158084263915725,
+        "spectral_ratio_sigma1_sigma2": 16777188.290592622
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 170,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-170",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.258150100708008,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07,
+          6.114333928053384e-07
+        ],
+        "top_singular_value": 10.258150100708008,
+        "spectral_gap_sigma1_sigma2": 10.258149489274615,
+        "spectral_ratio_sigma1_sigma2": 16777188.560889283
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 180,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-180",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.363728523254395,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07,
+          6.177263571771618e-07
+        ],
+        "top_singular_value": 10.363728523254395,
+        "spectral_gap_sigma1_sigma2": 10.363727905528037,
+        "spectral_ratio_sigma1_sigma2": 16777188.840419311
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 190,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-190",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.462480545043945,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07,
+          6.236124363567797e-07
+        ],
+        "top_singular_value": 10.462480545043945,
+        "spectral_gap_sigma1_sigma2": 10.462479921431509,
+        "spectral_ratio_sigma1_sigma2": 16777189.096769534
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 200,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-200",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.56511402130127,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07,
+          6.29729868251161e-07
+        ],
+        "top_singular_value": 10.56511402130127,
+        "spectral_gap_sigma1_sigma2": 10.565113391571401,
+        "spectral_ratio_sigma1_sigma2": 16777189.35811718
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 210,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-210",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.630523681640625,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07,
+          6.336285878205672e-07
+        ],
+        "top_singular_value": 10.630523681640625,
+        "spectral_gap_sigma1_sigma2": 10.630523048012037,
+        "spectral_ratio_sigma1_sigma2": 16777189.522044547
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 220,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-220",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.682296752929688,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07,
+          6.367145033436827e-07
+        ],
+        "top_singular_value": 10.682296752929688,
+        "spectral_gap_sigma1_sigma2": 10.682296116215184,
+        "spectral_ratio_sigma1_sigma2": 16777189.650373029
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 230,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-230",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.729265213012695,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07,
+          6.395140985659964e-07
+        ],
+        "top_singular_value": 10.729265213012695,
+        "spectral_gap_sigma1_sigma2": 10.729264573498597,
+        "spectral_ratio_sigma1_sigma2": 16777188.274477402
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 240,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-240",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.770631790161133,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07,
+          6.419797387025028e-07
+        ],
+        "top_singular_value": 10.770631790161133,
+        "spectral_gap_sigma1_sigma2": 10.770631148181394,
+        "spectral_ratio_sigma1_sigma2": 16777188.380962158
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 250,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-250",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.797455787658691,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07,
+          6.435785167013819e-07
+        ],
+        "top_singular_value": 10.797455787658691,
+        "spectral_gap_sigma1_sigma2": 10.797455144080175,
+        "spectral_ratio_sigma1_sigma2": 16777189.931401536
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 260,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-260",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.840615272521973,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07,
+          6.461510793087655e-07
+        ],
+        "top_singular_value": 10.840615272521973,
+        "spectral_gap_sigma1_sigma2": 10.840614626370893,
+        "spectral_ratio_sigma1_sigma2": 16777188.55926138
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 270,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-270",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.885176658630371,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07,
+          6.488070880550367e-07
+        ],
+        "top_singular_value": 10.885176658630371,
+        "spectral_gap_sigma1_sigma2": 10.885176009823283,
+        "spectral_ratio_sigma1_sigma2": 16777190.141481418
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 280,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-280",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.931507110595703,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07,
+          6.515685981867136e-07
+        ],
+        "top_singular_value": 10.931507110595703,
+        "spectral_gap_sigma1_sigma2": 10.931506459027105,
+        "spectral_ratio_sigma1_sigma2": 16777190.251076099
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 290,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-290",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          10.971837997436523,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07,
+          6.539725063703372e-07
+        ],
+        "top_singular_value": 10.971837997436523,
+        "spectral_gap_sigma1_sigma2": 10.971837343464017,
+        "spectral_ratio_sigma1_sigma2": 16777190.345725266
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 300,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-300",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.016432762145996,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07,
+          6.566305614796875e-07
+        ],
+        "top_singular_value": 11.016432762145996,
+        "spectral_gap_sigma1_sigma2": 11.016432105515435,
+        "spectral_ratio_sigma1_sigma2": 16777190.449574184
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 310,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-310",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.050711631774902,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07,
+          6.586737981706392e-07
+        ],
+        "top_singular_value": 11.050711631774902,
+        "spectral_gap_sigma1_sigma2": 11.050710973101104,
+        "spectral_ratio_sigma1_sigma2": 16777189.080964437
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 320,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-320",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.07619571685791,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07,
+          6.601927111660189e-07
+        ],
+        "top_singular_value": 11.07619571685791,
+        "spectral_gap_sigma1_sigma2": 11.076195056665199,
+        "spectral_ratio_sigma1_sigma2": 16777190.58743439
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 330,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-330",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.092960357666016,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07,
+          6.61191961626173e-07
+        ],
+        "top_singular_value": 11.092960357666016,
+        "spectral_gap_sigma1_sigma2": 11.092959696474054,
+        "spectral_ratio_sigma1_sigma2": 16777190.625839999
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 340,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-340",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.111839294433594,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07,
+          6.623172339459416e-07
+        ],
+        "top_singular_value": 11.111839294433594,
+        "spectral_gap_sigma1_sigma2": 11.11183863211636,
+        "spectral_ratio_sigma1_sigma2": 16777190.668950452
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 350,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-350",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.120444297790527,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07,
+          6.628301321143226e-07
+        ],
+        "top_singular_value": 11.120444297790527,
+        "spectral_gap_sigma1_sigma2": 11.120443634960395,
+        "spectral_ratio_sigma1_sigma2": 16777190.688551597
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 360,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-360",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.138276100158691,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07,
+          6.63892990360182e-07
+        ],
+        "top_singular_value": 11.138276100158691,
+        "spectral_gap_sigma1_sigma2": 11.138275436265701,
+        "spectral_ratio_sigma1_sigma2": 16777190.729073852
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 370,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-370",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.150708198547363,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07,
+          6.646340011684515e-07
+        ],
+        "top_singular_value": 11.150708198547363,
+        "spectral_gap_sigma1_sigma2": 11.150707533913362,
+        "spectral_ratio_sigma1_sigma2": 16777190.75724876
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 380,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-380",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.16032600402832,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07,
+          6.652072670476628e-07
+        ],
+        "top_singular_value": 11.16032600402832,
+        "spectral_gap_sigma1_sigma2": 11.160325338821053,
+        "spectral_ratio_sigma1_sigma2": 16777190.77900256
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 390,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-390",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.169520378112793,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07,
+          6.657552944488998e-07
+        ],
+        "top_singular_value": 11.169520378112793,
+        "spectral_gap_sigma1_sigma2": 11.169519712357499,
+        "spectral_ratio_sigma1_sigma2": 16777190.799763607
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 400,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-400",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.177003860473633,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07,
+          6.662013447567006e-07
+        ],
+        "top_singular_value": 11.177003860473633,
+        "spectral_gap_sigma1_sigma2": 11.177003194272288,
+        "spectral_ratio_sigma1_sigma2": 16777190.816636218
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 410,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-410",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.181999206542969,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07,
+          6.664990905846935e-07
+        ],
+        "top_singular_value": 11.181999206542969,
+        "spectral_gap_sigma1_sigma2": 11.181998540043878,
+        "spectral_ratio_sigma1_sigma2": 16777190.827886391
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 420,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-420",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.185500144958496,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07,
+          6.667077627753315e-07
+        ],
+        "top_singular_value": 11.185500144958496,
+        "spectral_gap_sigma1_sigma2": 11.185499478250733,
+        "spectral_ratio_sigma1_sigma2": 16777190.835764974
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 430,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-430",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.188386917114258,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07,
+          6.668798278042232e-07
+        ],
+        "top_singular_value": 11.188386917114258,
+        "spectral_gap_sigma1_sigma2": 11.18838625023443,
+        "spectral_ratio_sigma1_sigma2": 16777190.842257716
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 440,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-440",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.18942642211914,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07,
+          6.669417871307814e-07
+        ],
+        "top_singular_value": 11.18942642211914,
+        "spectral_gap_sigma1_sigma2": 11.189425755177353,
+        "spectral_ratio_sigma1_sigma2": 16777190.844594883
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  },
+  {
+    "step": 441,
+    "checkpoint": "/content/mechguard/results/study_a/checkpoints/checkpoint-441",
+    "reference_type": "clean",
+    "layers": {
+      "base_model.model.model.layers.8.mlp.down_proj": {
+        "matrix_shape": [
+          2048,
+          8192
+        ],
+        "singular_values": [
+          11.189437866210938,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07,
+          6.669424692518078e-07
+        ],
+        "top_singular_value": 11.189437866210938,
+        "spectral_gap_sigma1_sigma2": 11.189437199268468,
+        "spectral_ratio_sigma1_sigma2": 16777190.84462061
+      }
+    },
+    "flagged": false,
+    "scientific_notes": {
+      "commutator_defect": "not computed from checkpoint; requires paired gradient evaluations",
+      "reference_similarity": "geometry only; not equivalent to misalignment",
+      "thresholds": "literature anchors, not validated MechGuard decision thresholds"
+    }
+  }
+]
