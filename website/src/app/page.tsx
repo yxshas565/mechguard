@@ -1,11 +1,9 @@
-
 "use client";
 
 import {
   Activity,
   ArrowRight,
   BrainCircuit,
-  Check,
   ChevronDown,
   CircleDot,
   CloudUpload,
@@ -17,957 +15,794 @@ import {
   Play,
   RefreshCw,
   ShieldCheck,
-  Sparkles,
   Sun,
   Upload,
   X,
+  Zap,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { DragEvent, useEffect, useRef, useState } from "react";
 
 type Stage = "attest" | "watch" | "review";
-
-type ProductLayer = {
+type Layer = {
   id: Stage;
-  number: string;
+  eyebrow: string;
   title: string;
-  short: string;
   description: string;
-  icon: LucideIcon;
+  icon: typeof ShieldCheck;
 };
 
-const productLayers: ProductLayer[] = [
+const layers: Layer[] = [
   {
     id: "attest",
-    number: "01",
+    eyebrow: "TRAINING",
     title: "Attest",
-    short: "Training-time weight geometry",
     description:
-      "Measure how internal weight geometry changes as a model is fine-tuned.",
-    icon: BrainCircuit,
+      "Track how a model changes internally while it is being fine-tuned.",
+    icon: ShieldCheck,
   },
   {
     id: "watch",
-    number: "02",
+    eyebrow: "DEPLOYMENT",
     title: "Watch",
-    short: "Deployment-time representations",
     description:
-      "Monitor hidden representations across interacting agents where text-level monitoring can miss structure.",
+      "Monitor hidden-state representations across interacting agents.",
     icon: Eye,
   },
   {
     id: "review",
-    number: "03",
+    eyebrow: "DECISION",
     title: "Review",
-    short: "Evidence and investigation",
     description:
-      "Connect signals, model context, and evidence into an investigation surface.",
-    icon: ShieldCheck,
+      "Turn internal signals into evidence that engineers can investigate.",
+    icon: Activity,
   },
 ];
 
-const fileTypes = ".json,.jsonl,.csv,.txt,.yaml,.yml";
+const evidence = [
+  {
+    label: "A001",
+    title: "Training-time geometry",
+    description:
+      "45 checkpoints instrumented across a controlled LoRA fine-tuning run.",
+    metric: "8.36×",
+    metricLabel: "top singular value growth",
+    target: "attest" as Stage,
+  },
+  {
+    label: "B001",
+    title: "Cross-agent representations",
+    description:
+      "Scenario-grouped evaluation of hidden-state representations across agents.",
+    metric: "0.9677",
+    metricLabel: "agent OOF AUROC",
+    target: "watch" as Stage,
+  },
+  {
+    label: "B003",
+    title: "Layer stability",
+    description:
+      "Real activation measurements across layers 26–30 on Qwen3-32B.",
+    metric: "1.00",
+    metricLabel: "OOF AUROC",
+    target: "watch" as Stage,
+  },
+];
 
 export default function Home() {
-  const [dark, setDark] = useState(true);
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [themeReady, setThemeReady] = useState(false);
-  const [stage, setStage] = useState<Stage>("attest");
-  const [activeNode, setActiveNode] = useState<Stage>("attest");
-  const [payload, setPayload] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [dragging, setDragging] = useState(false);
+  const [stage, setStage] = useState<Stage | null>(null);
+  const [activeNode, setActiveNode] = useState<Stage | null>(null);
+  const [useCase, setUseCase] = useState<number | null>(null);
+  const [comparison, setComparison] = useState<number | null>(null);
+  const [input, setInput] = useState("");
+  const [fileName, setFileName] = useState("");
+  const [result, setResult] = useState<any>(null);
   const [running, setRunning] = useState(false);
-  const [runStep, setRunStep] = useState(0);
-  const [result, setResult] = useState<unknown>(null);
   const [error, setError] = useState("");
-  const [showRaw, setShowRaw] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const workspaceRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const saved = window.localStorage.getItem("mechguard-theme");
+  function applyTheme(next: "light" | "dark") {
+    const root = document.documentElement;
 
-    if (saved === "light") {
-      setDark(false);
-      document.documentElement.classList.remove("dark");
+    root.classList.toggle("dark", next === "dark");
+    root.dataset.theme = next;
+
+    if (next === "dark") {
+      root.style.setProperty("--bg", "#0b0d0c");
+      root.style.setProperty("--surface", "#111412");
+      root.style.setProperty("--surface-2", "#171a18");
+      root.style.setProperty("--text", "#f4f6f3");
+      root.style.setProperty("--muted", "#929892");
+      root.style.setProperty("--line", "rgba(255,255,255,.11)");
+      root.style.setProperty("--line-strong", "rgba(255,255,255,.19)");
+      root.style.setProperty("--accent", "#35d995");
+      root.style.setProperty("--accent-soft", "rgba(53,217,149,.09)");
     } else {
-      setDark(true);
-      document.documentElement.classList.add("dark");
+      root.style.setProperty("--bg", "#f7f7f5");
+      root.style.setProperty("--surface", "#ffffff");
+      root.style.setProperty("--surface-2", "#f0f1ee");
+      root.style.setProperty("--text", "#101210");
+      root.style.setProperty("--muted", "#626762");
+      root.style.setProperty("--line", "rgba(16,18,16,.13)");
+      root.style.setProperty("--line-strong", "rgba(16,18,16,.22)");
+      root.style.setProperty("--accent", "#08a968");
+      root.style.setProperty("--accent-soft", "rgba(8,169,104,.09)");
     }
 
+    root.style.colorScheme = next;
+  }
+
+  useEffect(() => {
+    const saved = localStorage.getItem("mechguard-theme");
+
+    const preferred: "light" | "dark" =
+      saved === "light" || saved === "dark"
+        ? saved
+        : window.matchMedia("(prefers-color-scheme: light)").matches
+          ? "light"
+          : "dark";
+
+    setTheme(preferred);
+    applyTheme(preferred);
     setThemeReady(true);
   }, []);
 
   function toggleTheme() {
-    const next = !dark;
-    setDark(next);
-    document.documentElement.classList.toggle("dark", next);
-    window.localStorage.setItem("mechguard-theme", next ? "dark" : "light");
+    const root = document.documentElement;
+    const current = root.dataset.theme === "dark" ? "dark" : "light";
+    const next = current === "dark" ? "light" : "dark";
+
+    // Update React state
+    setTheme(next);
+
+    // Persist
+    localStorage.setItem("mechguard-theme", next);
+
+    // Update DOM state
+    root.dataset.theme = next;
+    root.classList.toggle("dark", next === "dark");
+    root.style.colorScheme = next;
+
+    // Force the entire document canvas
+    const bg = next === "dark" ? "#0b0d0c" : "#f7f7f5";
+    const fg = next === "dark" ? "#f4f6f3" : "#101210";
+
+    root.style.setProperty("background-color", bg, "important");
+    root.style.setProperty("color", fg, "important");
+
+    document.body.style.setProperty("background-color", bg, "important");
+    document.body.style.setProperty("color", fg, "important");
+
+    // Force the actual MechGuard canvas
+    const page = document.querySelector(".mechguard-page") as HTMLElement | null;
+
+    if (page) {
+      page.classList.toggle("theme-dark", next === "dark");
+      page.classList.toggle("theme-light", next === "light");
+      page.style.setProperty("background-color", bg, "important");
+      page.style.setProperty("color", fg, "important");
+    }
   }
 
-  function chooseFile(nextFile: File | null) {
-    if (!nextFile) return;
+  function scrollToWorkspace(nextStage?: Stage) {
+    if (nextStage) setStage(nextStage);
+    workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
-    const allowed =
-      nextFile.name.match(/\.(json|jsonl|csv|txt|yaml|yml)$/i) !== null;
-
-    if (!allowed) {
-      setError("Use a JSON, JSONL, CSV, TXT, YAML, or YML file.");
-      return;
-    }
-
+  function chooseFile(file?: File) {
+    if (!file) return;
+    setFileName(file.name);
     setError("");
-    setFile(nextFile);
-    setPayload("");
+    const reader = new FileReader();
+    reader.onload = () => setInput(String(reader.result ?? ""));
+    reader.readAsText(file);
+  }
+
+  function onDrop(event: DragEvent<HTMLDivElement>) {
+    event.preventDefault();
+    chooseFile(event.dataTransfer.files?.[0]);
   }
 
   function clearInput() {
-    setFile(null);
-    setPayload("");
+    setInput("");
+    setFileName("");
     setResult(null);
     setError("");
-
-    if (inputRef.current) {
-      inputRef.current.value = "";
-    }
   }
 
   async function runAnalysis() {
-    if (!file && !payload.trim()) {
-      setError("Upload an input file or paste an analysis payload first.");
+    if (!input.trim()) {
+      setError("Add a payload or upload a file first.");
       return;
     }
 
     setRunning(true);
-    setResult(null);
     setError("");
-    setShowRaw(false);
-    setRunStep(0);
-
-    const timer = window.setInterval(() => {
-      setRunStep((current) => Math.min(current + 1, 3));
-    }, 900);
+    setResult(null);
 
     try {
-      let response: Response;
-
-      if (file) {
-        const form = new FormData();
-        form.append("stage", stage);
-        form.append("file", file);
-
-        response = await fetch("/api/analyze", {
-          method: "POST",
-          body: form,
-        });
-      } else {
-        response = await fetch("/api/analyze", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            stage,
-            input: payload.trim(),
-          }),
-        });
-      }
+      const response = await fetch("/api/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          stage: stage ?? "attest",
+          input,
+        }),
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(
-          typeof data?.error === "string"
-            ? data.error
-            : "The MechGuard backend returned an error."
-        );
+        throw new Error(data?.error || "Analysis failed.");
       }
 
-      setRunStep(3);
       setResult(data);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "The analysis request failed."
-      );
+      setError(err instanceof Error ? err.message : "Analysis failed.");
     } finally {
-      window.clearInterval(timer);
       setRunning(false);
     }
   }
 
-  const selectedLayer = useMemo(
-    () => productLayers.find((item) => item.id === stage) ?? productLayers[0],
-    [stage]
-  );
-
-  const selectedIndex = productLayers.findIndex(
-    (item) => item.id === activeNode
-  );
-
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#f5f7f5] text-[#0a100c] transition-colors duration-500 dark:bg-[#050705] dark:text-white">
+    <main className={`mechguard-page ${theme === "dark" ? "theme-dark" : "theme-light"}`}>
+      <button
+        className="mechguard-theme-toggle"
+        onClick={toggleTheme}
+        aria-label="Toggle theme"
+        type="button"
+        disabled={!themeReady}
+      >
+        {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+      </button>
 
-      {/* NAV */}
-      <nav className="sticky top-0 z-50 border-b border-black/[.07] bg-[#f5f7f5]/90 backdrop-blur-xl dark:border-white/[.08] dark:bg-[#050705]/90">
-        <div className="mx-auto flex h-[70px] max-w-7xl items-center justify-between px-5 lg:px-8">
+      <section className="hero">
+        <div className="hero-grid" />
 
-          <a href="#" className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#101512] text-white dark:bg-white dark:text-black">
-              <Activity size={16} />
-            </span>
-            <span className="text-sm font-semibold tracking-[-.02em]">
-              MechGuard
-            </span>
-          </a>
-
-          <div className="hidden items-center gap-8 text-xs text-black/50 dark:text-white/45 md:flex">
-            <a href="#system" className="transition hover:text-black dark:hover:text-white">System</a>
-            <a href="#product" className="transition hover:text-black dark:hover:text-white">Product</a>
-            <a href="#try" className="transition hover:text-black dark:hover:text-white">Try MechGuard</a>
-            <a href="#evidence" className="transition hover:text-black dark:hover:text-white">Evidence</a>
+        <div className="hero-copy">
+          <div className="eyebrow">
+            <CircleDot size={11} />
+            MECHGUARD / INTERNAL AI OBSERVABILITY
           </div>
 
-          {themeReady ? (
+          <h1>
+            Your AI can
+            <br />
+            <span>look fine.</span>
+            <br />
+            While changing underneath.
+          </h1>
+
+          <p className="hero-subtitle">
+            MechGuard instruments the signals inside fine-tuned and
+            multi-agent AI systems — before failures become visible at the
+            boundary.
+          </p>
+
+          <div className="hero-actions">
             <button
+              className="primary-button"
+              onClick={() => scrollToWorkspace()}
               type="button"
-              onClick={toggleTheme}
-              aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
-              className="group flex h-10 items-center gap-2 rounded-full border border-black/10 bg-white px-3 text-[10px] font-semibold transition hover:border-emerald-500/40 hover:shadow-sm dark:border-white/10 dark:bg-white/[.06]"
             >
-              <span className="relative flex h-4 w-4 items-center justify-center">
-                {dark ? <Moon size={14} /> : <Sun size={14} />}
-              </span>
-              <span className="hidden sm:block">
-                {dark ? "Dark" : "Light"}
-              </span>
+              Run the evidence
+              <ArrowRight size={16} />
             </button>
-          ) : (
-            <span className="h-10 w-16 rounded-full border border-black/10 dark:border-white/10" />
-          )}
+
+            <a className="text-link" href="#architecture">
+              See how it works
+              <ChevronDown size={15} />
+            </a>
+          </div>
         </div>
-      </nav>
 
-      {/* HERO */}
-      <section className="mx-auto max-w-7xl px-5 pb-20 pt-20 lg:px-8 lg:pb-28 lg:pt-28">
-        <div className="grid items-center gap-14 lg:grid-cols-[.85fr_1.15fr]">
-
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/[.06] px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[.18em] text-emerald-700 dark:text-emerald-300">
-              <span className="live-dot h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Mechanistic AI safety monitoring
-            </div>
-
-            <h1 className="mt-7 max-w-2xl text-5xl font-semibold leading-[.98] tracking-[-.06em] sm:text-6xl lg:text-[76px]">
-              See what&apos;s
-              <span className="block text-black/30 dark:text-white/25">
-                happening inside.
-              </span>
-            </h1>
-
-            <p className="mt-7 max-w-xl text-[15px] leading-8 text-black/55 dark:text-white/50">
-              MechGuard instruments internal signals across the AI lifecycle —
-              from weight-space changes during fine-tuning to hidden
-              representations across deployed agent systems.
-            </p>
-
-            <div className="mt-9 flex flex-wrap gap-3">
-              <a
-                href="#try"
-                className="inline-flex items-center gap-2 rounded-full bg-[#101512] px-5 py-3 text-xs font-semibold text-white transition hover:-translate-y-0.5 dark:bg-white dark:text-black"
-              >
-                Try the prototype
-                <ArrowRight size={14} />
-              </a>
-
-              <a
-                href="#system"
-                className="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-3 text-xs font-semibold transition hover:border-emerald-500/30 dark:border-white/10"
-              >
-                Explore the system
-              </a>
-            </div>
-
-            <div className="mt-10 flex flex-wrap gap-x-7 gap-y-3 text-[10px] text-black/35 dark:text-white/30">
-              <span>Training-time instrumentation</span>
-              <span>Deployment-time monitoring</span>
-              <span>Research-backed evidence</span>
-            </div>
+        <div className="hero-visual">
+          <div className="hero-visual-label">
+            <span>INTERNAL SIGNAL PATH</span>
+            <span>LIVE MODEL STATE</span>
           </div>
 
-          {/* INTERACTIVE SYSTEM MAP */}
-          <div
-            id="system"
-            className="relative rounded-[28px] border border-black/10 bg-white p-4 shadow-[0_35px_100px_rgba(0,0,0,.08)] dark:border-white/10 dark:bg-[#090d0b] dark:shadow-none sm:p-5"
+          <svg
+            className="signal-svg"
+            viewBox="0 0 620 340"
+            role="img"
+            aria-label="Animated internal signal paths"
           >
-            <div className="flex items-center justify-between px-2 pb-4">
-              <div>
-                <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-black/35 dark:text-white/30">
-                  MechGuard system
-                </p>
-                <p className="mt-1 text-[11px] text-black/45 dark:text-white/35">
-                  Select a layer to inspect the signal path
-                </p>
-              </div>
+            <defs>
+              <linearGradient id="heroSignal" x1="0%" x2="100%">
+                <stop offset="0%" />
+                <stop offset="50%" />
+                <stop offset="100%" />
+              </linearGradient>
+            </defs>
 
-              <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[.15em] text-emerald-700 dark:text-emerald-300">
-                <span className="live-dot h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                Live map
-              </div>
-            </div>
+            <path
+              id="heroPathA"
+              d="M40 170 C150 40 215 300 310 170 S470 40 580 170"
+              fill="none"
+              stroke="currentColor"
+              strokeOpacity=".18"
+              strokeWidth="1"
+            />
 
-            <div className="relative min-h-[430px] overflow-hidden rounded-2xl bg-[#f0f3f0] dark:bg-[#060906]">
+            <path
+              id="heroPathB"
+              d="M40 230 C145 110 220 330 310 205 S470 100 580 220"
+              fill="none"
+              stroke="currentColor"
+              strokeOpacity=".12"
+              strokeWidth="1"
+            />
 
-              {/* flowing paths */}
-              <svg
-                viewBox="0 0 900 430"
-                preserveAspectRatio="none"
-                className="pointer-events-none absolute inset-0 h-full w-full"
-              >
-                <defs>
-                  <path id="p1" d="M95 215 C190 215 205 105 320 105 C385 105 390 215 450 215" />
-                  <path id="p2" d="M450 215 C530 215 545 105 680 105" />
-                  <path id="p3" d="M450 215 C530 215 545 325 680 325" />
-                  <path id="p4" d="M680 105 C770 135 770 290 680 325" />
-                </defs>
+            <circle cx="40" cy="170" r="5" fill="currentColor" />
+            <circle cx="310" cy="170" r="5" fill="currentColor" />
+            <circle cx="580" cy="170" r="5" fill="currentColor" />
 
-                <g fill="none" stroke="currentColor" opacity=".13">
-                  <path d="M0 95 C150 20 250 170 390 90 S650 25 900 110" />
-                  <path d="M0 335 C150 250 270 390 430 300 S700 220 900 330" />
-                </g>
+            <circle r="3" fill="currentColor">
+              <animateMotion dur="3.2s" repeatCount="indefinite">
+                <mpath href="#heroPathA" />
+              </animateMotion>
+            </circle>
 
-                <g
-                  fill="none"
-                  stroke="#42c889"
-                  strokeWidth="3"
-                  className="signal-path"
-                >
-                  <use href="#p1" />
-                  <use href="#p2" />
-                  <use href="#p3" />
-                </g>
+            <circle r="2.5" fill="currentColor">
+              <animateMotion dur="4.5s" repeatCount="indefinite">
+                <mpath href="#heroPathB" />
+              </animateMotion>
+            </circle>
+          </svg>
 
-                <path
-                  d="M680 105 C770 135 770 290 680 325"
-                  fill="none"
-                  stroke="currentColor"
-                  opacity=".2"
-                  strokeWidth="2"
-                  strokeDasharray="4 12"
-                  className="signal-path-slow"
-                />
-
-                {[["p1", "0s"], ["p2", ".8s"], ["p3", "1.5s"], ["p4", "2.2s"]].map(
-                  ([pathId, delay]) => (
-                    <circle
-                      key={pathId}
-                      r="5"
-                      fill="#65e6a5"
-                      className="signal-dot"
-                    >
-                      <animateMotion
-                        dur="3.4s"
-                        begin={delay}
-                        repeatCount="indefinite"
-                      >
-                        <mpath href={`#${pathId}`} />
-                      </animateMotion>
-                    </circle>
-                  )
-                )}
-              </svg>
-
-              {/* nodes */}
-              <div className="absolute inset-0 grid grid-cols-[1fr_1.2fr_1fr] grid-rows-[1fr_auto_1fr] gap-3 p-4 sm:p-7">
-
-                <button
-                  type="button"
-                  onClick={() => setActiveNode("attest")}
-                  data-active={activeNode === "attest"}
-                  className="node-bloom col-start-1 row-start-2 self-center rounded-2xl border border-black/10 bg-white p-4 text-left dark:border-white/10 dark:bg-[#0b100d]"
-                >
-                  <div className="flex items-center justify-between">
-                    <BrainCircuit size={18} className="text-emerald-600 dark:text-emerald-300" />
-                    <span className="text-[8px] uppercase tracking-[.15em] text-black/30 dark:text-white/25">
-                      Input
-                    </span>
-                  </div>
-                  <p className="mt-5 text-sm font-semibold">Model</p>
-                  <p className="mt-1 text-[10px] leading-5 text-black/40 dark:text-white/35">
-                    Weights evolve during fine-tuning.
-                  </p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveNode("attest")}
-                  data-active={activeNode === "attest"}
-                  className={`node-bloom col-start-2 row-start-2 mx-auto w-full max-w-[230px] rounded-[24px] border p-5 text-left ${
-                    activeNode === "attest"
-                      ? "border-emerald-500/50 bg-emerald-500/[.08]"
-                      : "border-black/10 bg-white dark:border-white/10 dark:bg-[#0b100d]"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <Layers3 size={20} className="text-emerald-600 dark:text-emerald-300" />
-                    <span className="text-[8px] font-semibold uppercase tracking-[.15em] text-emerald-700 dark:text-emerald-300">
-                      01
-                    </span>
-                  </div>
-                  <p className="mt-6 text-lg font-semibold">Attest</p>
-                  <p className="mt-1 text-[10px] leading-5 text-black/45 dark:text-white/35">
-                    Weight-space geometry
-                  </p>
-                  <div className="mt-5 flex gap-1">
-                    {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-                      <span
-                        key={item}
-                        className="h-1.5 flex-1 rounded-full bg-emerald-500/20"
-                        style={{ opacity: item <= 5 ? 1 : .35 }}
-                      />
-                    ))}
-                  </div>
-                  <p className="mt-2 text-[8px] text-black/30 dark:text-white/25">
-                    Internal change signal
-                  </p>
-                </button>
-
-                <div className="col-start-3 row-span-3 flex flex-col justify-center gap-4">
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveNode("watch")}
-                    data-active={activeNode === "watch"}
-                    className={`node-bloom rounded-2xl border p-4 text-left ${
-                      activeNode === "watch"
-                        ? "border-emerald-500/50 bg-emerald-500/[.08]"
-                        : "border-black/10 bg-white dark:border-white/10 dark:bg-[#0b100d]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <Eye size={18} className="text-emerald-600 dark:text-emerald-300" />
-                      <span className="text-[8px] uppercase tracking-[.15em] text-emerald-700 dark:text-emerald-300">
-                        02
-                      </span>
-                    </div>
-                    <p className="mt-4 text-sm font-semibold">Agent A</p>
-                    <p className="mt-1 text-[10px] text-black/40 dark:text-white/30">
-                      Hidden representation
-                    </p>
-                    <div className="mt-4 flex gap-1">
-                      {[1,2,3,4,5,6].map((item) => (
-                        <span
-                          key={item}
-                          className={`h-5 flex-1 rounded-sm ${
-                            item % 2
-                              ? "bg-emerald-500/40"
-                              : "bg-black/10 dark:bg-white/10"
-                          }`}
-                        />
-                      ))}
-                    </div>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setActiveNode("watch")}
-                    data-active={activeNode === "watch"}
-                    className={`node-bloom rounded-2xl border p-4 text-left ${
-                      activeNode === "watch"
-                        ? "border-emerald-500/50 bg-emerald-500/[.08]"
-                        : "border-black/10 bg-white dark:border-white/10 dark:bg-[#0b100d]"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <Network size={18} className="text-emerald-600 dark:text-emerald-300" />
-                      <span className="text-[8px] uppercase tracking-[.15em] text-emerald-700 dark:text-emerald-300">
-                        cross-agent
-                      </span>
-                    </div>
-                    <p className="mt-4 text-sm font-semibold">Agent B</p>
-                    <p className="mt-1 text-[10px] text-black/40 dark:text-white/30">
-                      Representation relationship
-                    </p>
-                    <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-black/5 dark:bg-white/5">
-                      <div className="h-full w-[68%] rounded-full bg-emerald-500" />
-                    </div>
-                  </button>
-
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveNode("review")}
-                  data-active={activeNode === "review"}
-                  className={`node-bloom col-start-2 row-start-3 mx-auto w-full max-w-[230px] self-end rounded-2xl border p-4 text-left ${
-                    activeNode === "review"
-                      ? "border-emerald-500/50 bg-emerald-500/[.08]"
-                      : "border-black/10 bg-white dark:border-white/10 dark:bg-[#0b100d]"
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <ShieldCheck size={17} className="text-emerald-600 dark:text-emerald-300" />
-                    <span className="text-sm font-semibold">Review</span>
-                  </div>
-                  <p className="mt-2 text-[10px] leading-5 text-black/40 dark:text-white/30">
-                    Evidence, context, and investigation.
-                  </p>
-                </button>
-
-              </div>
-
-              {/* selected explanation */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 rounded-xl border border-black/5 bg-white/85 px-4 py-3 backdrop-blur dark:border-white/5 dark:bg-black/50">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <div>
-                    <p className="text-[8px] font-semibold uppercase tracking-[.18em] text-emerald-700 dark:text-emerald-300">
-                      Selected signal
-                    </p>
-                    <p className="mt-1 text-[11px] font-medium">
-                      {productLayers[selectedIndex]?.title ?? "Attest"} ·{" "}
-                      {productLayers[selectedIndex]?.short}
-                    </p>
-                  </div>
-                  <span className="text-[9px] text-black/35 dark:text-white/30">
-                    click nodes to inspect
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="hero-node-labels">
+            <span>MODEL</span>
+            <span>INTERNAL STATE</span>
+            <span>OBSERVATION</span>
           </div>
         </div>
       </section>
 
-      {/* PRODUCT LAYERS */}
-      <section id="product" className="border-y border-black/[.06] bg-white dark:border-white/[.06] dark:bg-[#080b09]">
-        <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-
-          <div className="max-w-2xl">
-            <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-emerald-700 dark:text-emerald-300">
-              Product architecture
-            </p>
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-.05em] sm:text-5xl">
-              Follow the signal.
-            </h2>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-black/50 dark:text-white/45">
-              The same safety workflow spans training, deployment, and
-              investigation — with each layer exposing a different internal
-              signal.
-            </p>
+      <section className="product-section">
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">THE PRODUCT</div>
+            <h2>One layer. Three jobs.</h2>
           </div>
+          <p>
+            A single observability layer spanning training, deployment, and
+            engineering review.
+          </p>
+        </div>
 
-          <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {productLayers.map((layer) => {
-              const Icon = layer.icon;
-              const selected = stage === layer.id;
+        <div className="product-grid">
+          {layers.map((layer, index) => {
+            const Icon = layer.icon;
+
+            return (
+              <button
+                key={layer.id}
+                className={`product-card ${stage === layer.id ? "is-selected" : ""}`}
+                onClick={() => scrollToWorkspace(layer.id)}
+                type="button"
+              >
+                <div className="product-card-top">
+                  <span>0{index + 1}</span>
+                  <Icon size={18} />
+                </div>
+                <div>
+                  <div className="eyebrow">{layer.eyebrow}</div>
+                  <h3>{layer.title}</h3>
+                  <p>{layer.description}</p>
+                </div>
+                <ArrowRight className="card-arrow" size={16} />
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="architecture-section" id="architecture">
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">SYSTEM ARCHITECTURE</div>
+            <h2>A signal flows through the system.</h2>
+          </div>
+          <p>
+            Instrument the model, measure internal change, surface evidence,
+            then review what needs attention.
+          </p>
+        </div>
+
+        <div className="architecture-shell">
+          <div className="architecture-map">
+            {[
+              ["instrument", "Instrument", Layers3],
+              ["measure", "Measure", Activity],
+              ["surface", "Surface", Network],
+              ["review", "Review", FileCode2],
+            ].map(([id, title, Icon], index) => {
+              const selected =
+                activeNode ===
+                (id === "instrument"
+                  ? "attest"
+                  : id === "surface"
+                    ? "watch"
+                    : id === "review"
+                      ? "review"
+                      : null);
+
+              const C = Icon as typeof Layers3;
 
               return (
-                <button
-                  type="button"
-                  key={layer.id}
-                  onClick={() => {
-                    setStage(layer.id);
-                    setActiveNode(layer.id);
-                  }}
-                  className={`node-bloom rounded-2xl border p-7 text-left ${
-                    selected
-                      ? "border-emerald-500/45 bg-emerald-500/[.06]"
-                      : "border-black/10 bg-[#f7f9f7] dark:border-white/10 dark:bg-[#0b0f0d]"
-                  }`}
-                  data-active={selected}
-                >
-                  <div className="flex items-center justify-between">
-                    <Icon
-                      size={21}
-                      className="text-emerald-600 dark:text-emerald-300"
-                    />
-                    <span className="text-[9px] tracking-[.15em] text-black/25 dark:text-white/25">
-                      {layer.number}
-                    </span>
-                  </div>
+                <div key={id as string} className="architecture-step">
+                  <button
+                    className={`system-node ${selected ? "is-selected" : ""}`}
+                    type="button"
+                    onClick={() => {
+                      if (id === "instrument") setActiveNode("attest");
+                      if (id === "measure") setActiveNode(null);
+                      if (id === "surface") setActiveNode("watch");
+                      if (id === "review") setActiveNode("review");
+                    }}
+                  >
+                    <span className="node-index">0{index + 1}</span>
+                    <C size={18} />
+                    <strong>{title as string}</strong>
+                  </button>
 
-                  <p className="mt-12 text-xl font-semibold">{layer.title}</p>
-                  <p className="mt-2 text-[10px] font-semibold uppercase tracking-[.12em] text-emerald-700 dark:text-emerald-300">
-                    {layer.short}
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-black/50 dark:text-white/45">
-                    {layer.description}
-                  </p>
-
-                  <div className="mt-7 flex items-center gap-2 text-[10px] font-semibold">
-                    Select layer
-                    <ArrowRight size={12} />
-                  </div>
-                </button>
+                  {index < 3 && <ArrowRight className="pipeline-arrow" size={16} />}
+                </div>
               );
             })}
           </div>
 
+          <div className="architecture-detail">
+            {activeNode === null ? (
+              <div className="architecture-empty">
+                <Zap size={17} />
+                <span>Hover or select a system stage to inspect it.</span>
+              </div>
+            ) : (
+              <div>
+                <div className="eyebrow">SELECTED SIGNAL</div>
+                <h3>
+                  {activeNode === "attest"
+                    ? "Training-time internal change"
+                    : activeNode === "watch"
+                      ? "Cross-agent hidden representations"
+                      : "Evidence for engineering review"}
+                </h3>
+                <p>
+                  {activeNode === "attest"
+                    ? "Measure how weight-space geometry evolves across fine-tuning checkpoints."
+                    : activeNode === "watch"
+                      ? "Compare normalized hidden-state representations across agents and scenarios."
+                      : "Bring measured signals, context, and limitations together for investigation."}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </section>
 
-      {/* TRY MECHGUARD */}
-      <section id="try" className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
-
+      <section className="fit-section">
+        <div className="section-heading">
           <div>
-            <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-emerald-700 dark:text-emerald-300">
-              Evidence-backed prototype
+            <div className="eyebrow">WHERE IT FITS</div>
+            <h2>Internal observability for AI infrastructure.</h2>
+          </div>
+          <p>
+            MechGuard complements the telemetry already surrounding modern AI
+            systems.
+          </p>
+        </div>
+
+        <div className="fit-grid">
+          {[
+            ["AI platforms", "Model serving, evaluation and deployment stacks.", BrainCircuit],
+            ["AI safety", "Mechanistic evidence below the input/output boundary.", ShieldCheck],
+            ["Agent infrastructure", "Signals across systems where several agents interact.", Network],
+            ["ML infrastructure", "Training checkpoints and model-state instrumentation.", Layers3],
+          ].map(([title, copy, Icon], index) => {
+            const selected = useCase === index;
+            const C = Icon as typeof BrainCircuit;
+
+            return (
+              <button
+                key={title as string}
+                className={`fit-card ${selected ? "is-selected" : ""}`}
+                type="button"
+                onClick={() => setUseCase(selected ? null : index)}
+              >
+                <C size={18} />
+                <strong>{title as string}</strong>
+                <span>{copy as string}</span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="layer-section">
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">WHY THIS LAYER</div>
+            <h2>Existing telemetry sees the boundary.</h2>
+          </div>
+          <p>
+            MechGuard looks one layer deeper, where internal model signals can
+            change before output behavior makes the change obvious.
+          </p>
+        </div>
+
+        <div className="comparison-shell">
+          {[
+            [
+              "Traditional telemetry",
+              "Requests, outputs, latency, errors and infrastructure health.",
+            ],
+            [
+              "MechGuard",
+              "Weight-space geometry and hidden-state representations.",
+            ],
+            [
+              "Together",
+              "Boundary telemetry plus internal model-state evidence.",
+            ],
+          ].map(([title, copy], index) => (
+            <button
+              key={title}
+              className={`comparison-card ${
+                comparison === index ? "is-selected" : ""
+              }`}
+              type="button"
+              onClick={() => setComparison(comparison === index ? null : index)}
+            >
+              <span className="comparison-number">0{index + 1}</span>
+              <strong>{title}</strong>
+              <p>{copy}</p>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="workspace-section" ref={workspaceRef} id="workspace">
+        <div className="workspace-heading">
+          <div>
+            <div className="eyebrow">INTERACTIVE PRODUCT WORKSPACE</div>
+            <h2>Don’t just read about it. Run the evidence.</h2>
+            <p>
+              Select a monitor, provide a payload, and send it to the MechGuard
+              analysis endpoint.
             </p>
-
-            <h2 className="mt-4 text-4xl font-semibold tracking-[-.05em] sm:text-5xl">
-              Inspect MechGuard
-              <span className="block text-black/30 dark:text-white/25">
-                research signals.
-              </span>
-            </h2>
-
-            <p className="mt-6 max-w-md text-sm leading-7 text-black/50 dark:text-white/45">
-              Choose what you want to inspect, upload an experiment artifact,
-              or paste a backend-supported payload. The request is forwarded to
-              the MechGuard analysis service.
-            </p>
-
-            <div className="mt-8 grid gap-2">
-              {productLayers.map((layer) => {
-                const Icon = layer.icon;
-                const selected = stage === layer.id;
-
-                return (
-                  <button
-                    type="button"
-                    key={layer.id}
-                    onClick={() => {
-                      setStage(layer.id);
-                      setActiveNode(layer.id);
-                    }}
-                    className={`flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition ${
-                      selected
-                        ? "border-emerald-500/40 bg-emerald-500/[.06]"
-                        : "border-black/10 dark:border-white/10"
-                    }`}
-                  >
-                    <Icon
-                      size={16}
-                      className="text-emerald-600 dark:text-emerald-300"
-                    />
-                    <span className="flex-1">
-                      <span className="block text-xs font-semibold">
-                        {layer.title}
-                      </span>
-                      <span className="block text-[9px] text-black/35 dark:text-white/30">
-                        {layer.short}
-                      </span>
-                    </span>
-                    {selected && (
-                      <Check size={14} className="text-emerald-600 dark:text-emerald-300" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
-          <div className="rounded-[28px] border border-black/10 bg-white p-5 shadow-[0_30px_90px_rgba(0,0,0,.06)] dark:border-white/10 dark:bg-[#090d0b] dark:shadow-none sm:p-7">
+          <div className="workspace-status">
+            <span className="status-dot" />
+            LIVE PROTOTYPE
+          </div>
+        </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-emerald-600 dark:text-emerald-300" />
-                <span className="text-sm font-semibold">
-                  {selectedLayer.title} analysis
-                </span>
-              </div>
+        <div className="workspace-shell">
+          <aside className="workspace-sidebar">
+            <div className="sidebar-label">MONITORS</div>
 
-              <span className="rounded-full border border-black/10 px-3 py-1.5 text-[8px] font-semibold uppercase tracking-[.15em] text-black/40 dark:border-white/10 dark:text-white/30">
-                {selectedLayer.short}
-              </span>
-            </div>
+            {layers.map((layer) => {
+              const Icon = layer.icon;
 
-            {/* FILE DROP */}
-            <button
-              type="button"
-              onClick={() => inputRef.current?.click()}
-              onDragOver={(event) => {
-                event.preventDefault();
-                setDragging(true);
-              }}
-              onDragLeave={() => setDragging(false)}
-              onDrop={(event) => {
-                event.preventDefault();
-                setDragging(false);
-                chooseFile(event.dataTransfer.files?.[0] ?? null);
-              }}
-              data-dragging={dragging}
-              className="drop-zone mt-6 block w-full rounded-2xl border border-dashed border-black/15 bg-[#f7f9f7] p-7 text-left dark:border-white/15 dark:bg-[#060906]"
-            >
-              <input
-                ref={inputRef}
-                type="file"
-                accept={fileTypes}
-                className="hidden"
-                onChange={(event) =>
-                  chooseFile(event.target.files?.[0] ?? null)
-                }
-              />
-
-              <div className="flex flex-col items-center justify-center text-center">
-                {file ? (
-                  <>
-                    <FileCode2 size={25} className="text-emerald-600 dark:text-emerald-300" />
-                    <p className="mt-4 text-sm font-semibold">{file.name}</p>
-                    <p className="mt-1 text-[10px] text-black/35 dark:text-white/30">
-                      {(file.size / 1024).toFixed(1)} KB · ready to inspect
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10">
-                      <CloudUpload size={22} className="text-emerald-600 dark:text-emerald-300" />
-                    </span>
-                    <p className="mt-4 text-sm font-semibold">
-                      Drop an experiment artifact here
-                    </p>
-                    <p className="mt-1 text-[10px] text-black/35 dark:text-white/30">
-                      or click to browse · JSON · JSONL · CSV · TXT · YAML
-                    </p>
-                  </>
-                )}
-              </div>
-            </button>
-
-            {file && (
-              <button
-                type="button"
-                onClick={clearInput}
-                className="mt-2 flex items-center gap-1 text-[9px] text-black/35 hover:text-black dark:text-white/30 dark:hover:text-white"
-              >
-                <X size={11} />
-                Remove file
-              </button>
-            )}
-
-            <div className="my-5 flex items-center gap-3">
-              <div className="h-px flex-1 bg-black/10 dark:bg-white/10" />
-              <span className="text-[8px] uppercase tracking-[.16em] text-black/25 dark:text-white/20">
-                or paste payload
-              </span>
-              <div className="h-px flex-1 bg-black/10 dark:bg-white/10" />
-            </div>
-
-            <textarea
-              value={payload}
-              onChange={(event) => {
-                setPayload(event.target.value);
-                if (event.target.value) setFile(null);
-              }}
-              placeholder='{"model":"...","checkpoint":"...","analysis":"..."}'
-              className="min-h-32 w-full resize-y rounded-2xl border border-black/10 bg-[#f7f9f7] p-4 font-mono text-[11px] leading-6 outline-none transition placeholder:text-black/25 focus:border-emerald-500/50 dark:border-white/10 dark:bg-[#060906] dark:placeholder:text-white/20"
-            />
-
-            {error && (
-              <div className="mt-4 flex items-start gap-2 rounded-xl border border-red-500/20 bg-red-500/[.05] px-4 py-3 text-xs leading-5 text-red-600 dark:text-red-300">
-                <X size={14} className="mt-0.5 shrink-0" />
-                <span>{error}</span>
-              </div>
-            )}
-
-            {running && (
-              <div className="mt-5 overflow-hidden rounded-2xl border border-emerald-500/20 bg-emerald-500/[.04] p-4">
-                <div className="flex items-center justify-between text-[9px] font-semibold uppercase tracking-[.14em]">
-                  <span className="text-emerald-700 dark:text-emerald-300">
-                    Loading measured internal signals
+              return (
+                <button
+                  key={layer.id}
+                  className={`workspace-tab ${
+                    stage === layer.id ? "is-selected" : ""
+                  }`}
+                  type="button"
+                  onClick={() => {
+                    setStage(layer.id);
+                    setResult(null);
+                    setError("");
+                  }}
+                >
+                  <Icon size={16} />
+                  <span>
+                    <strong>{layer.title}</strong>
+                    <small>{layer.eyebrow}</small>
                   </span>
-                  <RefreshCw size={12} className="animate-spin text-emerald-600" />
-                </div>
+                  <ArrowRight size={14} />
+                </button>
+              );
+            })}
 
-                <div className="relative mt-4 h-1 overflow-hidden rounded-full bg-emerald-500/10">
-                  <div
-                    className="h-full rounded-full bg-emerald-500 transition-all duration-700"
-                    style={{ width: `${Math.max(12, (runStep + 1) * 25)}%` }}
-                  />
-                </div>
+            <div className="sidebar-note">
+              <Activity size={14} />
+              <span>
+                Research-backed prototype. Results are returned by the current
+                backend rather than simulated in the UI.
+              </span>
+            </div>
+          </aside>
 
-                <div className="mt-3 grid grid-cols-3 gap-2 text-[8px] text-black/35 dark:text-white/30">
-                  <span className={runStep >= 0 ? "text-emerald-600" : ""}>ingest</span>
-                  <span className={runStep >= 1 ? "text-emerald-600" : ""}>measure</span>
-                  <span className={runStep >= 2 ? "text-emerald-600" : ""}>evaluate</span>
+          <div className="workspace-main">
+            {stage === null ? (
+              <div className="workspace-empty">
+                <div className="empty-icon">
+                  <Network size={22} />
                 </div>
+                <div className="eyebrow">NO MONITOR SELECTED</div>
+                <h3>Choose a monitor</h3>
+                <p>Select Attest, Watch or Review from the left.</p>
               </div>
-            )}
-
-            <button
-              type="button"
-              disabled={running}
-              onClick={runAnalysis}
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#101512] px-6 py-3.5 text-xs font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-wait disabled:opacity-45 dark:bg-white dark:text-black"
-            >
-              <Play size={13} fill="currentColor" />
-              {running ? "Loading evidence…" : "Inspect evidence"}
-              <ArrowRight size={13} />
-            </button>
-
-            {/* RESULT */}
-            {result !== null && (
-              <div className="mt-6 rounded-2xl border border-emerald-500/25 bg-emerald-500/[.05] p-5">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
-                    <CircleDot size={15} className="text-emerald-600 dark:text-emerald-300" />
-                    <span className="text-xs font-semibold">
-                      Evidence loaded
-                    </span>
+            ) : (
+              <>
+                <div className="workspace-toolbar">
+                  <div>
+                    <div className="eyebrow">
+                      {layers.find((item) => item.id === stage)?.eyebrow}
+                    </div>
+                    <h3>
+                      {layers.find((item) => item.id === stage)?.title}
+                    </h3>
                   </div>
 
-                  <span className="rounded-full bg-emerald-500/10 px-2.5 py-1 text-[8px] font-semibold uppercase tracking-[.12em] text-emerald-700 dark:text-emerald-300">
-                    research evidence
-                  </span>
+                  <button
+                    className="icon-button"
+                    onClick={clearInput}
+                    type="button"
+                    title="Clear"
+                  >
+                    <RefreshCw size={15} />
+                  </button>
                 </div>
 
-                <div className="mt-5 grid gap-2 sm:grid-cols-3">
-                  {[
-                    ["stage", stage],
-                    ["input", file?.name ?? "payload"],
-                    ["status", "received"],
-                  ].map(([label, value]) => (
-                    <div
-                      key={label}
-                      className="rounded-xl border border-black/5 bg-white/60 p-3 dark:border-white/5 dark:bg-black/20"
-                    >
-                      <p className="text-[8px] uppercase tracking-[.13em] text-black/30 dark:text-white/25">
-                        {label}
-                      </p>
-                      <p className="mt-1 truncate text-[10px] font-semibold">
-                        {value}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setShowRaw((value) => !value)}
-                  className="mt-4 flex items-center gap-2 text-[9px] font-semibold text-emerald-700 dark:text-emerald-300"
+                <div
+                  className="dropzone"
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={onDrop}
                 >
-                  {showRaw ? "Hide response" : "Inspect response"}
-                  <ChevronDown
-                    size={12}
-                    className={showRaw ? "rotate-180 transition" : "transition"}
+                  <input
+                    id="mechguard-file"
+                    type="file"
+                    hidden
+                    onChange={(event) => chooseFile(event.target.files?.[0])}
                   />
-                </button>
 
-                {showRaw && (
-                  <pre className="mt-3 max-h-80 overflow-auto rounded-xl bg-black/[.04] p-4 text-[9px] leading-5 dark:bg-white/[.04]">
-                    {JSON.stringify(result, null, 2)}
-                  </pre>
+                  <div className="dropzone-icon">
+                    <CloudUpload size={21} />
+                  </div>
+
+                  <strong>
+                    {fileName || "Drop a payload here"}
+                  </strong>
+                  <span>
+                    or paste your model input below
+                  </span>
+
+                  <label htmlFor="mechguard-file" className="secondary-button">
+                    <Upload size={14} />
+                    Choose file
+                  </label>
+                </div>
+
+                <textarea
+                  className="payload-input"
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="Paste JSON, text, or an analysis payload..."
+                  spellCheck={false}
+                />
+
+                {error && <div className="workspace-error">{error}</div>}
+
+                <div className="workspace-actions">
+                  <button
+                    className="primary-button"
+                    type="button"
+                    onClick={runAnalysis}
+                    disabled={running}
+                  >
+                    {running ? (
+                      <>
+                        <RefreshCw className="spin" size={15} />
+                        Running…
+                      </>
+                    ) : (
+                      <>
+                        <Play size={15} />
+                        Run analysis
+                      </>
+                    )}
+                  </button>
+
+                  {input && (
+                    <button
+                      className="text-link"
+                      type="button"
+                      onClick={clearInput}
+                    >
+                      <X size={14} />
+                      Clear
+                    </button>
+                  )}
+                </div>
+
+                {result && (
+                  <div className="result-panel">
+                    <div className="result-header">
+                      <div>
+                        <div className="eyebrow">ANALYSIS RESULT</div>
+                        <h3>Backend response</h3>
+                      </div>
+                      <span className="result-live">RETURNED</span>
+                    </div>
+
+                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                  </div>
                 )}
-              </div>
+              </>
             )}
           </div>
         </div>
       </section>
 
-      {/* EVIDENCE */}
-      <section id="evidence" className="border-t border-black/[.06] bg-white dark:border-white/[.06] dark:bg-[#080b09]">
-        <div className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
+      <section className="evidence-section">
+        <div className="section-heading">
+          <div>
+            <div className="eyebrow">RESEARCH EVIDENCE</div>
+            <h2>Built from measured signals.</h2>
+          </div>
+          <p>
+            Current evidence is exploratory and explicitly separated from
+            claims that remain unvalidated.
+          </p>
+        </div>
 
-          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-            <div className="max-w-2xl">
-              <p className="text-[9px] font-semibold uppercase tracking-[.2em] text-emerald-700 dark:text-emerald-300">
-                Current evidence
-              </p>
-              <h2 className="mt-4 text-4xl font-semibold tracking-[-.05em]">
-                Research-backed signals.
-              </h2>
-              <p className="mt-5 text-sm leading-7 text-black/50 dark:text-white/45">
-                These are measured research results, not simulated product
-                outputs. Production validation remains an open step.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/yxshas565/mechguard"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex w-fit items-center gap-2 rounded-full border border-black/10 px-5 py-3 text-xs font-semibold dark:border-white/10"
+        <div className="evidence-grid">
+          {evidence.map((item) => (
+            <button
+              key={item.label}
+              className="evidence-card"
+              type="button"
+              onClick={() => scrollToWorkspace(item.target)}
             >
-              <Activity size={14} />
-              Explore research
-            </a>
-          </div>
+              <div className="evidence-top">
+                <span>{item.label}</span>
+                <ArrowRight size={15} />
+              </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            {[
-              {
-                id: "A001",
-                title: "Attest",
-                value: "1.34 → 11.19",
-                label: "top singular value",
-                detail: "45 checkpoints · Llama-3.2-1B · layer 8",
-              },
-              {
-                id: "B001",
-                title: "Watch",
-                value: "0.9677",
-                label: "agent-level OOF AUROC",
-                detail: "NARCBench · Qwen3-32B · layer 30",
-              },
-              {
-                id: "B003",
-                title: "Layer sweep",
-                value: "26–30",
-                label: "layers evaluated",
-                detail: "Grouped OOF evaluation across Qwen3-32B",
-              },
-            ].map((item) => (
-              <article
-                key={item.id}
-                className="rounded-2xl border border-black/10 bg-[#f7f9f7] p-7 dark:border-white/10 dark:bg-[#0b0f0d]"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-[9px] font-semibold tracking-[.15em] text-black/30 dark:text-white/25">
-                    {item.id}
-                  </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                </div>
-                <p className="mt-9 text-sm font-semibold">{item.title}</p>
-                <p className="mt-3 text-4xl font-semibold tracking-[-.05em]">
-                  {item.value}
-                </p>
-                <p className="mt-2 text-[10px] font-medium text-emerald-700 dark:text-emerald-300">
-                  {item.label}
-                </p>
-                <p className="mt-5 text-[10px] leading-6 text-black/35 dark:text-white/30">
-                  {item.detail}
-                </p>
-              </article>
-            ))}
-          </div>
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
 
+              <div className="evidence-metric">
+                <strong>{item.metric}</strong>
+                <span>{item.metricLabel}</span>
+              </div>
+            </button>
+          ))}
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-black/[.06] dark:border-white/[.06]">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-5 px-5 py-8 text-[10px] text-black/35 dark:text-white/30 lg:px-8">
-          <div className="flex items-center gap-2">
-            <Activity size={13} />
-            MechGuard
-          </div>
-
-          <div className="flex items-center gap-5">
-            <a
-              href="https://github.com/yxshas565/mechguard"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5"
-            >
-              <Activity size={12} />
-              GitHub
-            </a>
-            <span>Mechanistic AI safety monitoring</span>
-          </div>
+      <section className="final-cta">
+        <div>
+          <div className="eyebrow">MECHGUARD</div>
+          <h2>See what changes underneath.</h2>
+          <p>
+            Internal observability for the next generation of AI systems.
+          </p>
         </div>
-      </footer>
 
+        <button
+          className="primary-button"
+          type="button"
+          onClick={() => scrollToWorkspace()}
+        >
+          Open workspace
+          <ArrowRight size={16} />
+        </button>
+      </section>
+
+      <footer className="site-footer">
+        <span>MECHGUARD</span>
+        <span>Internal AI observability</span>
+        <span>EdgeDaemon</span>
+      </footer>
     </main>
   );
 }
