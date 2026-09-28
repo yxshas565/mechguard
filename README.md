@@ -26,6 +26,8 @@ Conventional AI observability operates at the model boundary (inputs/outputs, tr
 ### 4. What is the website prototype?
 The `website/` directory contains a Next.js 16 web application displaying the product vision, an agentic orchestration mesh visual, and an interactive workspace. The API endpoint (`POST /api/analyze`) returns **persisted research evidence** (`live: false`), demonstrating the evidence-backed review workflow.
 
+**Deployed website:** [**mechguard-eight.vercel.app**](https://mechguard-eight.vercel.app/)
+
 ---
 
 ## 🏗️ Product Architecture: Attest · Watch · Review
