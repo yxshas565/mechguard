@@ -1,0 +1,50 @@
+{
+  "experiment": "Phase_1A_Safety_Regression_Controlled_Sweep",
+  "objective": "Test whether internal transformation geometry can distinguish safety-preserving from safety-regressing model transformations.",
+  "baseline": {
+    "model": "unsloth/Llama-3.2-1B-Instruct",
+    "target_layer": "model.layers.8.mlp.down_proj",
+    "dataset": "benign_transformation_train.jsonl"
+  },
+  "transformations": [
+    {
+      "id": "T01",
+      "lora_rank": 1,
+      "epochs": 1,
+      "learning_rate": 2e-05
+    },
+    {
+      "id": "T02",
+      "lora_rank": 1,
+      "epochs": 3,
+      "learning_rate": 2e-05
+    },
+    {
+      "id": "T03",
+      "lora_rank": 4,
+      "epochs": 1,
+      "learning_rate": 2e-05
+    }
+  ],
+  "geometry": [
+    "relative_delta_W_norm",
+    "top_singular_value_change",
+    "top32_singular_values",
+    "singular_energy_k1_2_4_8_16_32",
+    "principal_angles_k1_2_4_8_16_32",
+    "cosine_alignment_W_deltaW"
+  ],
+  "behavioral": [
+    "refusal_rate",
+    "medical_caution_rate",
+    "harmful_instruction_rate"
+  ],
+  "controls": [
+    "parameter_change_only",
+    "training_loss",
+    "perplexity_if_available",
+    "behavior_only"
+  ],
+  "status": "manifest_only",
+  "scientific_warning": "This experiment does not assume that larger weight change means safety regression. Safety outcome must be measured independently."
+}
