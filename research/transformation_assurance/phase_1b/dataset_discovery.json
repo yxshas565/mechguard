@@ -1,0 +1,29 @@
+{
+  "branch": "research/transformation-assurance-phase-1b",
+  "mechguard_repo": "/content/mechguard",
+  "dataset_candidates": [
+    "/content/mechguard/research/transformation_assurance/phase_1a/datasets/benign_transformation_train.jsonl"
+  ],
+  "jsonl_inspection": [
+    {
+      "path": "/content/mechguard/research/transformation_assurance/phase_1a/datasets/benign_transformation_train.jsonl",
+      "sample_count": 3,
+      "keys": [
+        [
+          "answer",
+          "question"
+        ],
+        [
+          "answer",
+          "question"
+        ],
+        [
+          "answer",
+          "question"
+        ]
+      ]
+    }
+  ],
+  "phase1a_pilot_dataset": "/content/mechguard/research/transformation_assurance/phase_1a/datasets/benign_transformation_train.jsonl",
+  "phase1a_pilot_exists": true
+}

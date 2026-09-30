@@ -1,0 +1,61 @@
+{
+  "phase": "1B",
+  "status": "completed",
+  "model": "unsloth/Llama-3.2-1B-Instruct",
+  "target": "model.layers.8.mlp.down_proj",
+  "dataset": "/content/mechguard/research/transformation_assurance/phase_1a/datasets/benign_transformation_train.jsonl",
+  "dataset_records": 10,
+  "transformations": {
+    "T01": {
+      "r": 1,
+      "epochs": 1,
+      "lr": 2e-05
+    },
+    "T02": {
+      "r": 1,
+      "epochs": 2,
+      "lr": 2e-05
+    },
+    "T03": {
+      "r": 1,
+      "epochs": 3,
+      "lr": 2e-05
+    },
+    "T04": {
+      "r": 4,
+      "epochs": 1,
+      "lr": 2e-05
+    },
+    "T05": {
+      "r": 4,
+      "epochs": 2,
+      "lr": 2e-05
+    },
+    "T06": {
+      "r": 4,
+      "epochs": 3,
+      "lr": 2e-05
+    },
+    "T07": {
+      "r": 1,
+      "epochs": 1,
+      "lr": 5e-05
+    },
+    "T08": {
+      "r": 1,
+      "epochs": 2,
+      "lr": 5e-05
+    },
+    "T09": {
+      "r": 4,
+      "epochs": 1,
+      "lr": 5e-05
+    }
+  },
+  "behavioral_prompts": {
+    "total": 18,
+    "harmful": 8,
+    "benign": 10
+  },
+  "qualification": "Exploratory pilot only. No clean independent Phase 1B dataset was available in this Colab session."
+}
