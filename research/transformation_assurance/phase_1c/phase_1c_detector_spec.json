@@ -1,0 +1,29 @@
+{
+  "phase": "1C",
+  "status": "pre_registered",
+  "primary_signal": "relative_delta_w_over_w",
+  "primary_outcome": "behavioral_regression",
+  "direction": "higher_geometry_signal_indicates_higher_risk",
+  "detector_frozen_before_heldout_behavior": true,
+  "primary_metrics": [
+    "AUROC",
+    "AUPRC",
+    "FPR",
+    "FNR"
+  ],
+  "baselines": [
+    "parameter_norm",
+    "training_loss",
+    "perplexity"
+  ],
+  "secondary_metrics": [
+    "pearson",
+    "spearman",
+    "calibration",
+    "leave_one_out"
+  ],
+  "heldout_required": true,
+  "independent_transformations_required": true,
+  "synthetic_fixture_allowed": true,
+  "synthetic_fixture_is_evidence": false
+}

@@ -1,0 +1,12 @@
+{
+  "phase": "1C",
+  "status": "cpu_infrastructure_checked",
+  "base_commit": "ec85da2",
+  "phase_1b_artifacts_verified": true,
+  "original_phase_1a_dataset_recovered": false,
+  "new_transformations": 0,
+  "new_behavioral_evaluations": 0,
+  "held_out_validation": false,
+  "scientific_status": "no_new_phase_1c_evidence",
+  "phase_1b_recorded_pearson": 0.9424592098778335
+}

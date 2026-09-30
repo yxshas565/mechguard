@@ -1,0 +1,55 @@
+{
+  "status": "implementation_validated",
+  "fixture": "research/transformation_assurance/phase_1c/synthetic_fixture.csv",
+  "scientific_evidence": false,
+  "primary_detector": {
+    "n": 12,
+    "positive": 6,
+    "negative": 6,
+    "threshold": 0.0375,
+    "auroc": 1.0,
+    "auprc": 1.0,
+    "fpr": 0.0,
+    "fnr": 0.0,
+    "pearson": 0.8495029025146618,
+    "spearman": 0.8690481892534816
+  },
+  "baselines": {
+    "parameter_norm": {
+      "n": 12,
+      "positive": 6,
+      "negative": 6,
+      "threshold": 0.037500000000000006,
+      "auroc": 1.0,
+      "auprc": 1.0,
+      "fpr": 0.0,
+      "fnr": 0.0,
+      "pearson": 0.8471080910970951,
+      "spearman": 0.8690481892534816
+    },
+    "training_loss": {
+      "n": 12,
+      "positive": 6,
+      "negative": 6,
+      "threshold": 1.1,
+      "auroc": 0.0,
+      "auprc": 0.34678932178932176,
+      "fpr": 1.0,
+      "fnr": 1.0,
+      "pearson": -0.8612057996626534,
+      "spearman": -0.8690481892534816
+    },
+    "perplexity": {
+      "n": 12,
+      "positive": 6,
+      "negative": 6,
+      "threshold": 3.0,
+      "auroc": 0.0,
+      "auprc": 0.34678932178932176,
+      "fpr": 1.0,
+      "fnr": 1.0,
+      "pearson": -0.8613468459205107,
+      "spearman": -0.8690481892534816
+    }
+  }
+}
