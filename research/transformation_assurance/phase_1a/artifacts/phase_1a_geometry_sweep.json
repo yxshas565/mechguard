@@ -1,0 +1,44 @@
+{
+  "experiment": "Phase 1A transformation exposure sweep",
+  "status": "pilot",
+  "interpretation": {
+    "observation": "Increasing training exposure from 1 to 3 epochs produced a larger relative weight-space change, while top singular value changed only minimally.",
+    "safety_claim": false,
+    "validated_detector": false
+  },
+  "results": [
+    {
+      "transformation": "r1_1epoch",
+      "rank": 1,
+      "epochs": 1,
+      "relative_delta": 0.00741185,
+      "top_sv_relative_change": -7.5239e-06,
+      "spectral_gap_base": 1.317232,
+      "spectral_gap_transformed": 1.317059,
+      "spectral_ratio_base": 21.22129,
+      "spectral_ratio_transformed": 21.21523
+    },
+    {
+      "transformation": "r4_1epoch",
+      "rank": 4,
+      "epochs": 1,
+      "relative_delta": 0.00735613,
+      "top_sv_relative_change": -1.38229e-05,
+      "spectral_gap_base": 1.317232,
+      "spectral_gap_transformed": 1.31681,
+      "spectral_ratio_base": 21.22129,
+      "spectral_ratio_transformed": 21.21802
+    },
+    {
+      "transformation": "r1_3epoch",
+      "rank": 1,
+      "epochs": 3,
+      "relative_delta": 0.0207296,
+      "top_sv_relative_change": 1.21607e-05,
+      "spectral_gap_base": 1.317232,
+      "spectral_gap_transformed": 1.314256,
+      "spectral_ratio_base": 21.22129,
+      "spectral_ratio_transformed": 21.19392
+    }
+  ]
+}

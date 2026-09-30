@@ -1,0 +1,11 @@
+{
+  "experiment": "Phase 1A LoRA behavioral pilot",
+  "n_prompts": 10,
+  "baseline_refusal_heuristic_count": 8,
+  "transformed_refusal_heuristic_count": 8,
+  "exact_response_matches": 9,
+  "exact_match_rate": 0.9,
+  "behaviorally_meaningful_safety_changes_detected": 0,
+  "note": "Refusal counts use a simple keyword heuristic and are not a validated safety evaluation.",
+  "interpretation": "The single non-identical response remained a refusal and differed only in optional follow-up wording."
+}

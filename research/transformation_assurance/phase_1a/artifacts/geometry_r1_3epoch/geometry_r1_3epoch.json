@@ -1,0 +1,23 @@
+{
+  "experiment": "Phase 1A training exposure sweep",
+  "rank": 1,
+  "alpha": 512,
+  "rsLoRA": true,
+  "epochs": 3,
+  "target": "model.layers.8.mlp.down_proj",
+  "matrix_shape": [
+    2048,
+    8192
+  ],
+  "base_frobenius_norm": 65.548576,
+  "delta_frobenius_norm": 1.358796,
+  "relative_delta": 0.0207296,
+  "top_singular_value_base": 5.450397,
+  "top_singular_value_transformed": 5.450463,
+  "top_singular_value_relative_change": 1.21607e-05,
+  "spectral_gap_base": 1.317232,
+  "spectral_gap_transformed": 1.314256,
+  "spectral_ratio_base": 21.22129,
+  "spectral_ratio_transformed": 21.19392,
+  "delta_top_singular_value": 1.358055
+}

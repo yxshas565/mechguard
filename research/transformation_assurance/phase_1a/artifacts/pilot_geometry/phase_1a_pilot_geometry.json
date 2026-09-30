@@ -1,0 +1,45 @@
+{
+  "experiment": "Phase 1A LoRA pilot",
+  "model": "unsloth/Llama-3.2-1B-Instruct",
+  "transformation": {
+    "method": "LoRA",
+    "r": 1,
+    "alpha": 512,
+    "rsLoRA": true,
+    "target_modules": [
+      "down_proj"
+    ],
+    "target_layers": [
+      8
+    ],
+    "learning_rate": 2e-05,
+    "training_examples": 10,
+    "epochs": 1
+  },
+  "target_matrix": {
+    "layer": "model.layers.8.mlp.down_proj",
+    "shape": [
+      2048,
+      8192
+    ]
+  },
+  "geometry": {
+    "base_frobenius_norm": 65.548576,
+    "delta_frobenius_norm": 0.485836,
+    "relative_delta": 0.00741185,
+    "top_singular_value_base": 5.450397,
+    "top_singular_value_transformed": 5.450356,
+    "top_singular_value_change": -4.1e-05,
+    "top_singular_value_relative_change": -7.5239e-06,
+    "spectral_gap_base": 1.317232,
+    "spectral_gap_transformed": 1.317059,
+    "spectral_ratio_base": 21.22129,
+    "spectral_ratio_transformed": 21.21523,
+    "delta_top_singular_value": 0.4859814
+  },
+  "interpretation": {
+    "pilot_status": "completed",
+    "observation": "LoRA produced a measurable weight-space change while simple top singular-value geometry changed only minimally.",
+    "safety_claim": false
+  }
+}
