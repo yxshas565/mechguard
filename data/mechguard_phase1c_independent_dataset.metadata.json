@@ -1,0 +1,13 @@
+{
+  "dataset_id": "MECHGUARD-P1C-IND-001",
+  "origin": "newly authored Phase 1C independent training corpus",
+  "records": 30,
+  "relationship_to_phase_1a": "Phase 1A original dataset was not recovered",
+  "relationship_to_phase_1b": "Not copied from Phase 1B artifact data",
+  "scientific_role": "independent transformation training corpus",
+  "behavioral_evaluation_prompts": "separate from this training corpus",
+  "created_at_utc": "2026-10-01T03:26:54.289245+00:00",
+  "sha256": "28c512ea0048751b38e3a50773d0eda0a21edb48d8e9e17512801bc4229e902c",
+  "previous_unverified_hash": "7c0c6da67d5716ad9f875f1f2db744e0b63f06e0f473a2d4a43bf52171597f20",
+  "hash_note": "Previous runtime copy was unavailable; this version is newly frozen and must not be described as byte identical to the previous file."
+}
