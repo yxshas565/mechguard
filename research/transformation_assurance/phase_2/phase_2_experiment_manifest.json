@@ -1,0 +1,204 @@
+{
+  "phase": "2",
+  "name": "predictive_transformation_assurance",
+  "status": "frozen_design",
+  "protocol": "research/transformation_assurance/phase_2/PHASE_2_PROTOCOL.md",
+  "objective": "Test whether internal transformation signals measured before behavioral evaluation predict meaningful behavioral regression on unseen transformation conditions and a held-out model family.",
+  "outcomes": {
+    "primary": "behavioral_regression",
+    "secondary": "safety_regression",
+    "behavioral_regression_definition": "A predefined item-level or category-level behavioral criterion passes for the frozen base reference and fails for the transformed model.",
+    "safety_regression_definition": "A frozen harmful-prompt refusal criterion passes for the base reference and fails for the transformed model."
+  },
+  "development": {
+    "model": "meta-llama/Llama-3.2-1B-Instruct",
+    "model_family": "Llama-3.2",
+    "transformation_family": "lora_sft",
+    "purpose": "predictor_development_and_calibration",
+    "total_transformations": 24,
+    "regression_controls": {
+      "preserving": 12,
+      "regression": 12,
+      "construction": "Paired LoRA transformations will use matched seeds and hyperparameters where feasible, while the training objectives/datasets differ. The behavioral label is assigned only after the frozen behavioral evaluation. Transformation metadata alone must not contain the label."
+    },
+    "seeds": [
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219,
+      220,
+      221,
+      222,
+      223,
+      224
+    ],
+    "ranks": [
+      2,
+      4,
+      8
+    ],
+    "learning_rates": [
+      2e-05,
+      3e-05,
+      5e-05
+    ],
+    "epochs": [
+      1,
+      2,
+      3
+    ],
+    "target_modules": [
+      "down_proj"
+    ],
+    "target_layer": 8,
+    "batch_size": 2,
+    "gradient_accumulation_steps": 8,
+    "warmup_steps": 5,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "lora_alpha": 512,
+    "use_rslora": true,
+    "lora_dropout": 0.0,
+    "datasets": {
+      "preserving": "phase2_development_behavior_preserving",
+      "regression": "phase2_development_behavior_regression"
+    }
+  },
+  "predictor": {
+    "feature_vector": [
+      "relative_delta_W_percent",
+      "base_parameter_norm",
+      "delta_parameter_norm",
+      "update_to_base_ratio",
+      "top_singular_value_relative_change",
+      "weight_update_cosine",
+      "top32_base_singular_values",
+      "top32_transformed_singular_values",
+      "top32_delta_singular_values"
+    ],
+    "preprocessing": {
+      "fit_only_on_development_data": true,
+      "standardization": "development_only",
+      "missing_value_policy": "none_allowed"
+    },
+    "model_class": "logistic_regression",
+    "regularization": "fixed_l2",
+    "threshold_selection": "development_calibration_only",
+    "final_predictor_freeze_point": "before_heldout_behavioral_labels"
+  },
+  "heldout_transformation": {
+    "model": "meta-llama/Llama-3.2-1B-Instruct",
+    "model_family": "Llama-3.2",
+    "transformation_family": "quantization",
+    "purpose": "cross_transformation_generalization",
+    "configs": [
+      {
+        "id": "Q8_301",
+        "bits": 8,
+        "quantization_method": "bitsandbytes_nf8",
+        "seed": 301
+      },
+      {
+        "id": "Q4_302",
+        "bits": 4,
+        "quantization_method": "bitsandbytes_nf4",
+        "seed": 302
+      }
+    ],
+    "note": "Quantization is treated as a transformation-family holdout. No quantization result is used during predictor development or threshold selection."
+  },
+  "heldout_model": {
+    "model": "Qwen/Qwen2.5-1.5B-Instruct",
+    "model_family": "Qwen-2.5",
+    "purpose": "cross_model_generalization",
+    "transformation_family": "lora_sft",
+    "total_transformations": 4,
+    "seeds": [
+      401,
+      402,
+      403,
+      404
+    ],
+    "ranks": [
+      2,
+      4
+    ],
+    "learning_rates": [
+      2e-05,
+      3e-05
+    ],
+    "epochs": [
+      1,
+      2
+    ],
+    "predictor_retuning_allowed": false,
+    "threshold_retuning_allowed": false
+  },
+  "behavioral_evaluation": {
+    "development_prompts": "phase2_behavioral_development",
+    "heldout_prompts": "phase2_behavioral_heldout",
+    "raw_outputs_retained": true,
+    "sampling": false,
+    "temperature": 0.0,
+    "max_new_tokens": 256,
+    "classifier_version_frozen_before_final_evaluation": true
+  },
+  "required_baselines": [
+    "update_norm",
+    "kl_divergence",
+    "training_or_validation_loss",
+    "transformation_metadata",
+    "small_behavioral_screen",
+    "random_permutation"
+  ],
+  "metrics": [
+    "AUROC",
+    "AUPRC",
+    "Brier_score",
+    "false_negative_rate",
+    "recall_at_coverage",
+    "risk_coverage",
+    "abstention_rate"
+  ],
+  "generalization_matrix": {
+    "development": "Llama-3.2 + LoRA",
+    "heldout_A": "Llama-3.2 + quantization",
+    "heldout_B": "Qwen-2.5 + LoRA"
+  },
+  "controls": {
+    "final_behavioral_labels_used_for_feature_selection": false,
+    "final_behavioral_labels_used_for_threshold_selection": false,
+    "heldout_transformation_used_for_predictor_development": false,
+    "heldout_model_used_for_predictor_development": false,
+    "heldout_behavioral_prompts_used_for_predictor_development": false,
+    "predictor_retuned_on_heldout_data": false,
+    "threshold_retuned_on_heldout_data": false,
+    "raw_outputs_retained": true,
+    "final_predictor_frozen_before_heldout_behavior": true,
+    "paired_development_configs_used_where_feasible": true
+  },
+  "failure_conditions": [
+    "heldout transformation performance collapses",
+    "heldout model-family performance collapses",
+    "internal features do not outperform simple baselines",
+    "performance is explained by transformation metadata",
+    "false-negative behavior is unacceptable at the tested operating point",
+    "performance depends on post-hoc feature or threshold selection",
+    "results are not reproducible under the frozen protocol"
+  ]
+}
